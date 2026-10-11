@@ -162,129 +162,219 @@ export default function RankingsPage() {
           <p className="text-xs text-slate-muted">Try choosing another town or division.</p>
         </div>
       ) : (
-        <div className="rounded-2xl bg-surface-card border border-surface-border overflow-hidden shadow-2xl">
-          <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs">
-              <thead className="bg-surface text-slate-muted uppercase font-bold text-[10px] tracking-wider border-b border-surface-border">
-                <tr>
-                  <th className="py-3 px-4 text-center">Rank</th>
-                  <th className="py-3 px-4">Player</th>
-                  <th className="py-3 px-4">Community</th>
-                  <th className="py-3 px-4 text-center">Division</th>
-                  <th className="py-3 px-4 text-right">Official Elo</th>
-                  <th className="py-3 px-4 text-center">W / L</th>
-                  <th className="py-3 px-4 text-center">Win %</th>
-                  <th className="py-3 px-4 text-center">Streak</th>
-                  <th className="py-3 px-4 text-right">Action</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-surface-border/50">
-                {filtered.map((player, idx) => {
-                  const divColor = getDivisionColor(player.division);
-                  const isTop3 = idx < 3;
-
-                  return (
-                    <tr
-                      key={player.id}
-                      className="hover:bg-surface-elevated/40 transition-colors"
-                    >
-                      {/* Rank Number */}
-                      <td className="py-3.5 px-4 text-center">
-                        <span
-                          className={`font-mono font-black text-sm inline-flex items-center justify-center w-7 h-7 rounded-lg ${
-                            idx === 0
-                              ? "bg-yellow-500/20 text-yellow-400 border border-yellow-500/40"
-                              : idx === 1
-                              ? "bg-slate-300/20 text-slate-200 border border-slate-300/40"
-                              : idx === 2
-                              ? "bg-amber-700/20 text-amber-400 border border-amber-700/40"
-                              : "text-slate-muted"
-                          }`}
-                        >
-                          #{idx + 1}
-                        </span>
-                      </td>
-
-                      {/* Player Info */}
-                      <td className="py-3.5 px-4">
+        <div className="space-y-3">
+          {/* Mobile Card View (Handheld screens) */}
+          <div className="block md:hidden space-y-2.5">
+            {filtered.map((player, idx) => {
+              const divColor = getDivisionColor(player.division);
+              return (
+                <div
+                  key={player.id}
+                  className="p-3.5 rounded-2xl bg-surface-card border border-surface-border space-y-3 shadow-md"
+                >
+                  <div className="flex items-center justify-between gap-2">
+                    <div className="flex items-center gap-2.5 min-w-0">
+                      <span
+                        className={`font-mono font-black text-xs inline-flex items-center justify-center w-6 h-6 rounded-lg shrink-0 ${
+                          idx === 0
+                            ? "bg-yellow-500/20 text-yellow-400 border border-yellow-500/40"
+                            : idx === 1
+                            ? "bg-slate-300/20 text-slate-200 border border-slate-300/40"
+                            : idx === 2
+                            ? "bg-amber-700/20 text-amber-400 border border-amber-700/40"
+                            : "text-slate-muted bg-surface-elevated"
+                        }`}
+                      >
+                        #{idx + 1}
+                      </span>
+                      <div className="min-w-0">
                         <Link
                           href={`/players/${player.username}`}
-                          className="flex items-center gap-3 group"
+                          className="font-bold text-white text-xs hover:text-brand transition-colors block truncate"
                         >
-                          <div className="w-8 h-8 rounded-lg bg-surface-elevated border border-surface-border flex items-center justify-center font-bold text-white text-xs group-hover:border-brand transition-colors">
-                            {player.displayName[0]}
-                          </div>
-                          <div>
-                            <p className="font-bold text-white group-hover:text-brand transition-colors truncate max-w-[140px]">
-                              {player.displayName}
-                            </p>
-                            <p className="text-[10px] text-slate-muted font-mono truncate max-w-[140px]">
-                              @{player.username}
-                            </p>
-                          </div>
+                          {player.displayName}
                         </Link>
-                      </td>
-
-                      {/* Community */}
-                      <td className="py-3.5 px-4 text-slate-muted">
-                        <span className="text-xs text-white block">{player.town}</span>
-                        <span className="text-[10px] text-slate-muted block truncate max-w-[120px]">
-                          {player.club}
+                        <span className="text-[10px] text-slate-muted flex items-center gap-1">
+                          <MapPin className="w-3 h-3 shrink-0" />
+                          <span className="truncate">{player.town}</span>
                         </span>
-                      </td>
+                      </div>
+                    </div>
 
-                      {/* Division Badge */}
-                      <td className="py-3.5 px-4 text-center">
-                        <span
-                          className={`text-[9px] uppercase font-bold px-2 py-0.5 rounded-full border ${divColor.bg} ${divColor.text} ${divColor.border}`}
-                        >
-                          {player.division}
-                        </span>
-                      </td>
+                    <div className="text-right shrink-0">
+                      <span className="font-mono font-black text-sm text-brand block leading-tight">
+                        {player.rating}
+                      </span>
+                      <span
+                        className={`text-[8px] uppercase font-bold px-1.5 py-0.2 rounded-full border inline-block ${divColor.bg} ${divColor.text} ${divColor.border}`}
+                      >
+                        {player.division}
+                      </span>
+                    </div>
+                  </div>
 
-                      {/* Rating */}
-                      <td className="py-3.5 px-4 text-right">
-                        <span className="font-mono font-bold text-sm text-brand">
-                          {player.rating}
-                        </span>
-                        <span className="text-[9px] text-slate-muted block">
-                          Peak: {player.peakRating}
-                        </span>
-                      </td>
-
-                      {/* W / L */}
-                      <td className="py-3.5 px-4 text-center font-mono text-slate-muted">
-                        <span className="text-white font-bold">{player.matchesWon}</span> -{" "}
-                        <span>{player.matchesLost}</span>
-                      </td>
-
-                      {/* Win Rate */}
-                      <td className="py-3.5 px-4 text-center font-mono font-bold text-white">
+                  {/* Horizontal stats strip */}
+                  <div className="grid grid-cols-3 gap-1.5 py-1.5 px-2.5 rounded-xl bg-surface border border-surface-border/50 text-center text-[10px]">
+                    <div>
+                      <span className="text-slate-muted text-[9px] block">Record</span>
+                      <span className="font-mono font-bold text-white whitespace-nowrap">
+                        {player.matchesWon}W - {player.matchesLost}L
+                      </span>
+                    </div>
+                    <div>
+                      <span className="text-slate-muted text-[9px] block">Win Rate</span>
+                      <span className="font-mono font-bold text-white whitespace-nowrap">
                         {player.winRate}%
-                      </td>
+                      </span>
+                    </div>
+                    <div>
+                      <span className="text-slate-muted text-[9px] block">Streak</span>
+                      <span className="font-mono font-bold text-gold flex items-center justify-center gap-0.5 whitespace-nowrap">
+                        <Flame className="w-3 h-3 fill-gold shrink-0" />
+                        <span>{player.streak}</span>
+                      </span>
+                    </div>
+                  </div>
 
-                      {/* Streak */}
-                      <td className="py-3.5 px-4 text-center">
-                        <span className="inline-flex items-center gap-0.5 text-xs font-mono font-bold text-gold">
-                          <Flame className="w-3.5 h-3.5 fill-gold text-gold" />
-                          <span>{player.streak}</span>
-                        </span>
-                      </td>
+                  <div className="flex items-center justify-between pt-1">
+                    <span className="text-[10px] text-slate-muted truncate max-w-[170px]">
+                      {player.club}
+                    </span>
+                    <Link
+                      href={`/players?challenge=${player.id}`}
+                      className="px-3 py-1 rounded-lg bg-brand text-black font-bold text-[11px] hover:bg-brand-hover transition-all whitespace-nowrap shrink-0 shadow-sm"
+                    >
+                      Challenge
+                    </Link>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
 
-                      {/* Action */}
-                      <td className="py-3.5 px-4 text-right">
-                        <Link
-                          href={`/players?challenge=${player.id}`}
-                          className="px-2.5 py-1 rounded-lg bg-brand/10 border border-brand/30 hover:bg-brand hover:text-black text-brand text-[11px] font-bold transition-all inline-block"
-                        >
-                          Challenge
-                        </Link>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
+          {/* Desktop & Tablet Table View */}
+          <div className="hidden md:block rounded-2xl bg-surface-card border border-surface-border overflow-hidden shadow-2xl">
+            <div className="table-responsive-container">
+              <table className="min-w-[700px] w-full text-left text-xs whitespace-nowrap">
+                <thead className="bg-surface text-slate-muted uppercase font-bold text-[10px] tracking-wider border-b border-surface-border">
+                  <tr>
+                    <th className="py-3 px-4 text-center">Rank</th>
+                    <th className="py-3 px-4">Player</th>
+                    <th className="py-3 px-4">Community</th>
+                    <th className="py-3 px-4 text-center">Division</th>
+                    <th className="py-3 px-4 text-right">Official Elo</th>
+                    <th className="py-3 px-4 text-center">W / L</th>
+                    <th className="py-3 px-4 text-center">Win %</th>
+                    <th className="py-3 px-4 text-center">Streak</th>
+                    <th className="py-3 px-4 text-right">Action</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-surface-border/50">
+                  {filtered.map((player, idx) => {
+                    const divColor = getDivisionColor(player.division);
+                    return (
+                      <tr
+                        key={player.id}
+                        className="hover:bg-surface-elevated/40 transition-colors"
+                      >
+                        {/* Rank Number */}
+                        <td className="py-3.5 px-4 text-center whitespace-nowrap">
+                          <span
+                            className={`font-mono font-black text-sm inline-flex items-center justify-center w-7 h-7 rounded-lg ${
+                              idx === 0
+                                ? "bg-yellow-500/20 text-yellow-400 border border-yellow-500/40"
+                                : idx === 1
+                                ? "bg-slate-300/20 text-slate-200 border border-slate-300/40"
+                                : idx === 2
+                                ? "bg-amber-700/20 text-amber-400 border border-amber-700/40"
+                                : "text-slate-muted"
+                            }`}
+                          >
+                            #{idx + 1}
+                          </span>
+                        </td>
+
+                        {/* Player Info */}
+                        <td className="py-3.5 px-4 whitespace-nowrap">
+                          <Link
+                            href={`/players/${player.username}`}
+                            className="flex items-center gap-3 group"
+                          >
+                            <div className="w-8 h-8 rounded-lg bg-surface-elevated border border-surface-border flex items-center justify-center font-bold text-white text-xs group-hover:border-brand transition-colors shrink-0">
+                              {player.displayName[0]}
+                            </div>
+                            <div>
+                              <p className="font-bold text-white group-hover:text-brand transition-colors">
+                                {player.displayName}
+                              </p>
+                              <p className="text-[10px] text-slate-muted font-mono">
+                                @{player.username}
+                              </p>
+                            </div>
+                          </Link>
+                        </td>
+
+                        {/* Community */}
+                        <td className="py-3.5 px-4 text-slate-muted whitespace-nowrap">
+                          <span className="text-xs text-white block">{player.town}</span>
+                          <span className="text-[10px] text-slate-muted block">
+                            {player.club}
+                          </span>
+                        </td>
+
+                        {/* Division Badge */}
+                        <td className="py-3.5 px-4 text-center whitespace-nowrap">
+                          <span
+                            className={`text-[9px] uppercase font-bold px-2 py-0.5 rounded-full border ${divColor.bg} ${divColor.text} ${divColor.border}`}
+                          >
+                            {player.division}
+                          </span>
+                        </td>
+
+                        {/* Rating */}
+                        <td className="py-3.5 px-4 text-right whitespace-nowrap font-mono">
+                          <span className="font-bold text-sm text-brand block">
+                            {player.rating}
+                          </span>
+                          <span className="text-[9px] text-slate-muted block">
+                            Peak: {player.peakRating}
+                          </span>
+                        </td>
+
+                        {/* W / L */}
+                        <td className="py-3.5 px-4 text-center font-mono text-slate-muted whitespace-nowrap">
+                          <span className="text-white font-bold">{player.matchesWon}</span> -{" "}
+                          <span>{player.matchesLost}</span>
+                        </td>
+
+                        {/* Win Rate */}
+                        <td className="py-3.5 px-4 text-center font-mono font-bold text-white whitespace-nowrap">
+                          {player.winRate}%
+                        </td>
+
+                        {/* Streak */}
+                        <td className="py-3.5 px-4 text-center whitespace-nowrap">
+                          <span className="inline-flex items-center gap-0.5 text-xs font-mono font-bold text-gold">
+                            <Flame className="w-3.5 h-3.5 fill-gold text-gold" />
+                            <span>{player.streak}</span>
+                          </span>
+                        </td>
+
+                        {/* Action */}
+                        <td className="py-3.5 px-4 text-right whitespace-nowrap">
+                          <Link
+                            href={`/players?challenge=${player.id}`}
+                            className="px-2.5 py-1 rounded-lg bg-brand/10 border border-brand/30 hover:bg-brand hover:text-black text-brand text-[11px] font-bold transition-all inline-block"
+                          >
+                            Challenge
+                          </Link>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       )}

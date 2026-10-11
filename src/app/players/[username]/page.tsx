@@ -71,44 +71,44 @@ export default async function PlayerProfilePage({
   const isPlaying = profile.user.availability?.status === "IN_MATCH";
 
   return (
-    <div className="space-y-8 pb-16 max-w-5xl mx-auto">
+    <div className="space-y-6 sm:space-y-8 pb-16 max-w-5xl mx-auto">
       {/* Player Header Banner */}
-      <div className="relative rounded-3xl overflow-hidden border border-surface-border bg-surface-card p-6 sm:p-10 shadow-2xl">
+      <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden border border-surface-border bg-surface-card p-4 sm:p-8 shadow-2xl">
         <div className="absolute top-0 right-0 w-80 h-80 bg-brand/5 rounded-full blur-3xl pointer-events-none" />
 
-        <div className="relative z-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
-          <div className="flex items-center gap-5">
-            <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-3xl bg-surface-elevated border-2 border-brand/40 flex items-center justify-center font-black text-3xl text-white shadow-glow">
+        <div className="relative z-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 sm:gap-6">
+          <div className="flex items-center gap-3.5 sm:gap-5 min-w-0">
+            <div className="w-14 h-14 sm:w-20 sm:h-20 rounded-2xl bg-surface-elevated border-2 border-brand/40 flex items-center justify-center font-black text-xl sm:text-3xl text-white shadow-glow shrink-0">
               {profile.displayName[0]}
             </div>
 
-            <div className="space-y-1">
-              <div className="flex items-center gap-2">
+            <div className="space-y-1 min-w-0">
+              <div className="flex items-center gap-2 flex-wrap">
                 <span
-                  className={`text-[10px] uppercase font-bold px-2.5 py-0.5 rounded-full border ${divisionColor.bg} ${divisionColor.text} ${divisionColor.border}`}
+                  className={`text-[9px] sm:text-[10px] uppercase font-bold px-2.5 py-0.5 rounded-full border whitespace-nowrap ${divisionColor.bg} ${divisionColor.text} ${divisionColor.border}`}
                 >
                   {profile.division} DIVISION
                 </span>
-                <span className="flex items-center gap-1 text-xs text-slate-muted">
+                <span className="flex items-center gap-1 text-xs text-slate-muted whitespace-nowrap">
                   <MapPin className="w-3.5 h-3.5" />
                   {profile.town}, {profile.province}
                 </span>
               </div>
 
-              <h1 className="text-2xl sm:text-3xl font-extrabold font-display text-white">
+              <h1 className="text-xl sm:text-3xl font-extrabold font-display text-white truncate">
                 {profile.displayName}
               </h1>
-              <p className="text-xs text-slate-muted font-mono">
+              <p className="text-xs text-slate-muted font-mono truncate">
                 @{profile.username} · {profile.club}
               </p>
             </div>
           </div>
 
           {/* Quick Challenge CTA */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 w-full sm:w-auto">
             <Link
               href={`/players?challenge=${profile.userId}`}
-              className="px-6 py-3 rounded-xl bg-brand text-black font-bold text-xs hover:bg-brand-hover shadow-glow flex items-center gap-2 transition-all hover:scale-105"
+              className="w-full sm:w-auto px-5 sm:px-6 py-2.5 sm:py-3 rounded-xl bg-brand text-black font-bold text-xs hover:bg-brand-hover shadow-glow flex items-center justify-center gap-2 transition-all hover:scale-105 whitespace-nowrap"
             >
               <Swords className="w-4 h-4" />
               <span>Challenge to Match</span>
@@ -117,73 +117,73 @@ export default async function PlayerProfilePage({
         </div>
 
         {profile.bio && (
-          <p className="mt-6 pt-4 border-t border-surface-border/60 text-xs text-slate-muted italic max-w-2xl leading-relaxed">
+          <p className="mt-4 sm:mt-6 pt-3 sm:pt-4 border-t border-surface-border/60 text-xs text-slate-muted italic max-w-2xl leading-relaxed">
             &quot;{profile.bio}&quot;
           </p>
         )}
       </div>
 
       {/* Career Stats Grid */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-        <div className="p-5 rounded-2xl bg-surface-card border border-surface-border">
-          <span className="text-[10px] uppercase font-bold text-slate-muted block mb-1">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-4">
+        <div className="p-3.5 sm:p-5 rounded-xl sm:rounded-2xl bg-surface-card border border-surface-border">
+          <span className="text-[9px] sm:text-[10px] uppercase font-bold text-slate-muted block mb-1 whitespace-nowrap">
             Official Elo
           </span>
-          <span className="font-mono text-2xl font-black text-brand">
+          <span className="font-mono text-xl sm:text-2xl font-black text-brand whitespace-nowrap block">
             {Math.round(profile.rating)}
           </span>
-          <span className="text-[10px] text-slate-muted block mt-1">
+          <span className="text-[10px] text-slate-muted block mt-1 whitespace-nowrap">
             Peak: {Math.round(profile.peakRating)} ELO
           </span>
         </div>
 
-        <div className="p-5 rounded-2xl bg-surface-card border border-surface-border">
-          <span className="text-[10px] uppercase font-bold text-slate-muted block mb-1">
+        <div className="p-3.5 sm:p-5 rounded-xl sm:rounded-2xl bg-surface-card border border-surface-border">
+          <span className="text-[9px] sm:text-[10px] uppercase font-bold text-slate-muted block mb-1 whitespace-nowrap">
             Win Percentage
           </span>
-          <span className="font-mono text-2xl font-black text-white">
+          <span className="font-mono text-xl sm:text-2xl font-black text-white whitespace-nowrap block">
             {winRate}%
           </span>
-          <span className="text-[10px] text-slate-muted block mt-1">
-            {profile.matchesWon} Won / {profile.matchesLost} Lost
+          <span className="text-[10px] text-slate-muted block mt-1 whitespace-nowrap">
+            {profile.matchesWon}W / {profile.matchesLost}L
           </span>
         </div>
 
-        <div className="p-5 rounded-2xl bg-surface-card border border-surface-border">
-          <span className="text-[10px] uppercase font-bold text-slate-muted block mb-1">
+        <div className="p-3.5 sm:p-5 rounded-xl sm:rounded-2xl bg-surface-card border border-surface-border">
+          <span className="text-[9px] sm:text-[10px] uppercase font-bold text-slate-muted block mb-1 whitespace-nowrap">
             Frames Record
           </span>
-          <span className="font-mono text-2xl font-black text-white">
+          <span className="font-mono text-xl sm:text-2xl font-black text-white whitespace-nowrap block">
             {profile.framesWon} - {profile.framesLost}
           </span>
-          <span className="text-[10px] text-slate-muted block mt-1">
+          <span className="text-[10px] text-slate-muted block mt-1 whitespace-nowrap">
             Diff: {profile.framesWon - profile.framesLost >= 0 ? "+" : ""}
             {profile.framesWon - profile.framesLost}
           </span>
         </div>
 
-        <div className="p-5 rounded-2xl bg-surface-card border border-surface-border">
-          <span className="text-[10px] uppercase font-bold text-slate-muted block mb-1">
+        <div className="p-3.5 sm:p-5 rounded-xl sm:rounded-2xl bg-surface-card border border-surface-border">
+          <span className="text-[9px] sm:text-[10px] uppercase font-bold text-slate-muted block mb-1 whitespace-nowrap">
             Winning Streak
           </span>
-          <span className="font-mono text-2xl font-black text-gold flex items-center gap-1.5">
-            <Flame className="w-5 h-5 fill-gold text-gold" />
+          <span className="font-mono text-xl sm:text-2xl font-black text-gold flex items-center gap-1.5 whitespace-nowrap">
+            <Flame className="w-4 sm:w-5 h-4 sm:h-5 fill-gold text-gold shrink-0" />
             {profile.currentStreak}
           </span>
-          <span className="text-[10px] text-slate-muted block mt-1">
+          <span className="text-[10px] text-slate-muted block mt-1 whitespace-nowrap">
             Career Best: {profile.bestStreak}
           </span>
         </div>
       </div>
 
       {/* Trophy Cabinet (Achievements) */}
-      <div className="p-6 rounded-2xl bg-surface-card border border-surface-border space-y-4">
+      <div className="p-4 sm:p-6 rounded-2xl bg-surface-card border border-surface-border space-y-4">
         <div className="flex items-center justify-between">
-          <h2 className="text-base font-bold font-display text-white flex items-center gap-2">
-            <Trophy className="w-5 h-5 text-gold" />
+          <h2 className="text-sm sm:text-base font-bold font-display text-white flex items-center gap-2">
+            <Trophy className="w-4 sm:w-5 h-4 sm:h-5 text-gold shrink-0" />
             <span>Trophy Cabinet &amp; Badges</span>
           </h2>
-          <span className="text-xs font-mono text-gold">
+          <span className="text-[11px] sm:text-xs font-mono text-gold whitespace-nowrap">
             {profile.user.achievements.length} Unlocked
           </span>
         </div>
@@ -193,23 +193,23 @@ export default async function PlayerProfilePage({
             No achievements unlocked yet. Play competitive matches to fill your trophy cabinet!
           </p>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2.5 sm:gap-3">
             {profile.user.achievements.map((ua) => (
               <div
                 key={ua.id}
-                className="p-4 rounded-xl bg-surface border border-surface-border hover:border-gold/40 transition-all flex items-start gap-3"
+                className="p-3 sm:p-4 rounded-xl bg-surface border border-surface-border hover:border-gold/40 transition-all flex items-start gap-3"
               >
-                <div className="w-10 h-10 rounded-xl bg-gold/10 border border-gold/30 text-gold flex items-center justify-center shrink-0">
-                  <Award className="w-5 h-5" />
+                <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gold/10 border border-gold/30 text-gold flex items-center justify-center shrink-0">
+                  <Award className="w-4 sm:w-5 h-4 sm:h-5" />
                 </div>
-                <div>
-                  <h4 className="text-xs font-bold text-white">
+                <div className="min-w-0">
+                  <h4 className="text-xs font-bold text-white truncate">
                     {ua.achievement.title}
                   </h4>
-                  <p className="text-[11px] text-slate-muted leading-tight mt-0.5">
+                  <p className="text-[11px] text-slate-muted leading-tight mt-0.5 line-clamp-2">
                     {ua.achievement.description}
                   </p>
-                  <span className="text-[9px] uppercase font-bold text-gold/80 block mt-1">
+                  <span className="text-[9px] uppercase font-bold text-gold/80 block mt-1 whitespace-nowrap">
                     {ua.achievement.rarity} · +{ua.achievement.points} PTS
                   </span>
                 </div>
@@ -220,8 +220,8 @@ export default async function PlayerProfilePage({
       </div>
 
       {/* Match History */}
-      <div className="p-6 rounded-2xl bg-surface-card border border-surface-border space-y-4">
-        <h2 className="text-base font-bold font-display text-white">
+      <div className="p-4 sm:p-6 rounded-2xl bg-surface-card border border-surface-border space-y-4">
+        <h2 className="text-sm sm:text-base font-bold font-display text-white">
           Recent Official Match History
         </h2>
 
@@ -230,7 +230,7 @@ export default async function PlayerProfilePage({
             No completed matches on record yet.
           </p>
         ) : (
-          <div className="space-y-3">
+          <div className="space-y-2.5 sm:space-y-3">
             {recentMatches.map((m) => {
               const isP1 = m.player1Id === profile.userId;
               const myScore = isP1 ? m.scorePlayer1 : m.scorePlayer2;
@@ -241,11 +241,11 @@ export default async function PlayerProfilePage({
               return (
                 <div
                   key={m.id}
-                  className="p-4 rounded-xl bg-surface border border-surface-border/70 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs"
+                  className="p-3 sm:p-4 rounded-xl bg-surface border border-surface-border/70 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-3 text-xs"
                 >
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-3 min-w-0">
                     <span
-                      className={`px-2 py-1 rounded-md font-mono font-black text-xs ${
+                      className={`px-2 py-1 rounded-md font-mono font-black text-xs shrink-0 whitespace-nowrap ${
                         won
                           ? "bg-emerald-950/60 text-emerald-300 border border-emerald-500/40"
                           : "bg-red-950/60 text-red-300 border border-red-500/40"
@@ -253,11 +253,11 @@ export default async function PlayerProfilePage({
                     >
                       {won ? "WIN" : "LOSS"} {myScore} - {oppScore}
                     </span>
-                    <div>
-                      <p className="font-bold text-white">
+                    <div className="min-w-0">
+                      <p className="font-bold text-white truncate">
                         vs {opponent.profile?.displayName}
                       </p>
-                      <p className="text-[11px] text-slate-muted">
+                      <p className="text-[11px] text-slate-muted truncate">
                         Race to {m.raceTo} · {m.ruleset.replace("_", " ")}
                       </p>
                     </div>
@@ -265,7 +265,7 @@ export default async function PlayerProfilePage({
 
                   <Link
                     href={`/matches/${m.id}`}
-                    className="text-xs font-bold text-brand hover:underline flex items-center gap-1 self-end sm:self-auto"
+                    className="text-xs font-bold text-brand hover:underline flex items-center gap-1 self-end sm:self-auto shrink-0 whitespace-nowrap"
                   >
                     <span>View Breakdown</span>
                     <ArrowRight className="w-3.5 h-3.5" />

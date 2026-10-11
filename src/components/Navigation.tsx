@@ -118,9 +118,9 @@ export default function Navigation() {
       <header className="sticky top-0 z-50 w-full border-b border-surface-border bg-background/95 backdrop-blur-md">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           {/* Brand Logo & Wordmark */}
-          <div className="flex items-center gap-6">
-            <Link href="/" className="flex items-center gap-3 group">
-              <div className="relative w-10 h-10 rounded-xl overflow-hidden border border-brand/40 shadow-glow group-hover:border-brand transition-all">
+          <div className="flex items-center gap-2 sm:gap-6 min-w-0">
+            <Link href="/" className="flex items-center gap-2 sm:gap-3 group shrink-0">
+              <div className="relative w-8 h-8 sm:w-10 sm:h-10 rounded-xl overflow-hidden border border-brand/40 shadow-glow group-hover:border-brand transition-all shrink-0">
                 <Image
                   src="/assets/my8ball_logo.jpg"
                   alt="My8ball Logo"
@@ -129,10 +129,10 @@ export default function Navigation() {
                 />
               </div>
               <div className="flex flex-col">
-                <span className="text-xl font-bold font-display tracking-tight text-white flex items-center gap-1.5">
+                <span className="text-base sm:text-xl font-bold font-display tracking-tight text-white flex items-center gap-1 whitespace-nowrap">
                   MY<span className="text-brand">8</span>BALL
                 </span>
-                <span className="text-[10px] uppercase tracking-widest text-slate-muted font-semibold -mt-1">
+                <span className="text-[9px] sm:text-[10px] uppercase tracking-widest text-slate-muted font-semibold -mt-1 whitespace-nowrap">
                   South Africa
                 </span>
               </div>
@@ -286,18 +286,19 @@ export default function Navigation() {
                 </div>
               </>
             ) : (
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
                 <Link
                   href="/auth/sign-in"
-                  className="px-3.5 py-1.5 rounded-lg text-xs font-semibold text-slate-muted hover:text-white transition-colors"
+                  className="px-2.5 sm:px-3.5 py-1.5 rounded-lg text-xs font-semibold text-slate-muted hover:text-white transition-colors whitespace-nowrap"
                 >
                   Sign In
                 </Link>
                 <Link
                   href="/auth/sign-up"
-                  className="px-4 py-1.5 rounded-lg text-xs font-bold bg-brand text-black hover:bg-brand-hover shadow-glow transition-all"
+                  className="px-3 sm:px-4 py-1.5 rounded-lg text-xs font-bold bg-brand text-black hover:bg-brand-hover shadow-glow transition-all whitespace-nowrap"
                 >
-                  Join My8ball
+                  <span className="hidden sm:inline">Join My8ball</span>
+                  <span className="sm:hidden">Join</span>
                 </Link>
               </div>
             )}
@@ -305,7 +306,8 @@ export default function Navigation() {
             {/* Mobile Hamburger Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden p-2 rounded-lg bg-surface-card border border-surface-border text-slate-muted hover:text-white"
+              className="lg:hidden p-1.5 sm:p-2 rounded-lg bg-surface-card border border-surface-border text-slate-muted hover:text-white shrink-0"
+              aria-label="Toggle Menu"
             >
               {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
@@ -346,53 +348,53 @@ export default function Navigation() {
       </header>
 
       {/* Mobile Bottom Navigation Bar (Primary thumb-friendly quick links) */}
-      <nav className="lg:hidden fixed bottom-0 left-0 right-0 z-50 border-t border-surface-border bg-surface/95 backdrop-blur-md px-2 py-1.5 flex items-center justify-around shadow-2xl">
+      <nav className="lg:hidden fixed bottom-0 left-0 right-0 z-50 border-t border-surface-border bg-surface/95 backdrop-blur-md px-1 py-1.5 flex items-center justify-around shadow-2xl safe-area-bottom">
         <Link
           href="/dashboard"
-          className={`flex flex-col items-center gap-0.5 py-1 px-2 rounded-lg text-[10px] font-medium transition-colors ${
+          className={`flex flex-col items-center gap-0.5 py-1 px-1.5 rounded-lg text-[10px] font-medium transition-colors shrink-0 ${
             pathname === "/dashboard" || pathname === "/"
-              ? "text-brand"
+              ? "text-brand font-bold"
               : "text-slate-muted hover:text-white"
           }`}
         >
-          <Home className="w-5 h-5" />
-          <span>Home</span>
+          <Home className="w-5 h-5 shrink-0" />
+          <span className="whitespace-nowrap">Home</span>
         </Link>
         <Link
           href="/players"
-          className={`flex flex-col items-center gap-0.5 py-1 px-2 rounded-lg text-[10px] font-medium transition-colors ${
-            pathname === "/players" ? "text-brand" : "text-slate-muted hover:text-white"
+          className={`flex flex-col items-center gap-0.5 py-1 px-1.5 rounded-lg text-[10px] font-medium transition-colors shrink-0 ${
+            pathname === "/players" ? "text-brand font-bold" : "text-slate-muted hover:text-white"
           }`}
         >
-          <Users className="w-5 h-5" />
-          <span>Find</span>
+          <Users className="w-5 h-5 shrink-0" />
+          <span className="whitespace-nowrap">Find</span>
         </Link>
         <Link
           href="/challenges"
-          className={`flex flex-col items-center gap-0.5 py-1 px-2 rounded-lg text-[10px] font-medium relative transition-colors ${
-            pathname === "/challenges" ? "text-brand" : "text-slate-muted hover:text-white"
+          className={`flex flex-col items-center gap-0.5 py-1 px-1.5 rounded-lg text-[10px] font-medium relative transition-colors shrink-0 ${
+            pathname === "/challenges" ? "text-brand font-bold" : "text-slate-muted hover:text-white"
           }`}
         >
-          <Swords className="w-5 h-5" />
-          <span>Challenges</span>
+          <Swords className="w-5 h-5 shrink-0" />
+          <span className="whitespace-nowrap">Challenges</span>
         </Link>
         <Link
           href="/matches"
-          className={`flex flex-col items-center gap-0.5 py-1 px-2 rounded-lg text-[10px] font-medium transition-colors ${
-            pathname.startsWith("/matches") ? "text-brand" : "text-slate-muted hover:text-white"
+          className={`flex flex-col items-center gap-0.5 py-1 px-1.5 rounded-lg text-[10px] font-medium transition-colors shrink-0 ${
+            pathname.startsWith("/matches") ? "text-brand font-bold" : "text-slate-muted hover:text-white"
           }`}
         >
-          <Radio className="w-5 h-5" />
-          <span>Live</span>
+          <Radio className="w-5 h-5 shrink-0" />
+          <span className="whitespace-nowrap">Live</span>
         </Link>
         <Link
           href="/rankings"
-          className={`flex flex-col items-center gap-0.5 py-1 px-2 rounded-lg text-[10px] font-medium transition-colors ${
-            pathname === "/rankings" ? "text-brand" : "text-slate-muted hover:text-white"
+          className={`flex flex-col items-center gap-0.5 py-1 px-1.5 rounded-lg text-[10px] font-medium transition-colors shrink-0 ${
+            pathname === "/rankings" ? "text-brand font-bold" : "text-slate-muted hover:text-white"
           }`}
         >
-          <Trophy className="w-5 h-5" />
-          <span>Ranks</span>
+          <Trophy className="w-5 h-5 shrink-0" />
+          <span className="whitespace-nowrap">Ranks</span>
         </Link>
       </nav>
     </>

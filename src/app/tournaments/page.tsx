@@ -62,9 +62,9 @@ export default function TournamentsPage() {
 
   return (
     <div className="space-y-6 pb-16 max-w-5xl mx-auto">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold font-display text-white">
+          <h1 className="text-xl sm:text-3xl font-extrabold font-display text-white">
             Tournaments &amp; Brackets
           </h1>
           <p className="text-xs text-slate-muted">
@@ -74,7 +74,7 @@ export default function TournamentsPage() {
 
         <Link
           href="/tournaments/create"
-          className="px-4 py-2.5 rounded-xl bg-brand text-black font-bold text-xs hover:bg-brand-hover shadow-glow flex items-center gap-2 self-start sm:self-auto transition-all"
+          className="px-4 py-2.5 rounded-xl bg-brand text-black font-bold text-xs hover:bg-brand-hover shadow-glow flex items-center gap-2 self-start sm:self-auto transition-all whitespace-nowrap"
         >
           <Plus className="w-4 h-4" />
           <span>Host Tournament</span>
@@ -86,53 +86,53 @@ export default function TournamentsPage() {
           Loading tournaments...
         </div>
       ) : tournaments.length === 0 ? (
-        <div className="p-12 text-center rounded-2xl bg-surface-card border border-surface-border">
+        <div className="p-8 sm:p-12 text-center rounded-2xl bg-surface-card border border-surface-border">
           <Calendar className="w-10 h-10 text-slate-muted mx-auto mb-2" />
           <h3 className="text-base font-bold text-white">No tournaments hosted yet</h3>
           <p className="text-xs text-slate-muted mt-1">Host an invitational or club championship.</p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
           {tournaments.map((t) => (
             <div
               key={t.id}
-              className="p-6 rounded-2xl bg-surface-card border border-surface-border hover:border-brand/40 transition-all space-y-4 relative overflow-hidden"
+              className="p-4 sm:p-6 rounded-2xl bg-surface-card border border-surface-border hover:border-brand/40 transition-all space-y-3.5 sm:space-y-4 relative overflow-hidden"
             >
-              <div className="flex items-start justify-between">
-                <div>
-                  <span className="text-[10px] uppercase font-bold px-2 py-0.5 rounded-full bg-gold/10 text-gold border border-gold/20">
+              <div className="flex items-start justify-between gap-2">
+                <div className="min-w-0">
+                  <span className="text-[10px] uppercase font-bold px-2 py-0.5 rounded-full bg-gold/10 text-gold border border-gold/20 whitespace-nowrap">
                     {t.format.replace("_", " ")} · {t.numTables} TABLES
                   </span>
-                  <h3 className="text-lg font-bold font-display text-white mt-1">
+                  <h3 className="text-base sm:text-lg font-bold font-display text-white mt-1 truncate">
                     {t.name}
                   </h3>
-                  <p className="text-xs text-slate-muted flex items-center gap-1 mt-0.5">
-                    <MapPin className="w-3.5 h-3.5" />
-                    {t.location} · {t.venue}
+                  <p className="text-xs text-slate-muted flex items-center gap-1 mt-0.5 truncate">
+                    <MapPin className="w-3.5 h-3.5 shrink-0" />
+                    <span className="truncate">{t.location} · {t.venue}</span>
                   </p>
                 </div>
 
-                <span className="font-mono font-bold text-sm text-brand px-2.5 py-1 rounded-lg bg-surface border border-surface-border">
+                <span className="font-mono font-bold text-xs sm:text-sm text-brand px-2 sm:px-2.5 py-1 rounded-lg bg-surface border border-surface-border whitespace-nowrap shrink-0">
                   {t.registrations.length} Seeds
                 </span>
               </div>
 
-              <div className="pt-2 flex items-center gap-4 text-xs text-slate-muted">
-                <span>Rules: <strong>{t.ruleset.replace("_", " ")}</strong></span>
-                <span>Race to: <strong>{t.raceTo}</strong></span>
-                <span>Type: <strong>{t.type}</strong></span>
+              <div className="pt-2 flex items-center gap-2 sm:gap-4 text-xs text-slate-muted flex-wrap">
+                <span className="whitespace-nowrap">Rules: <strong className="text-white">{t.ruleset.replace("_", " ")}</strong></span>
+                <span className="whitespace-nowrap">Race to: <strong className="text-white">{t.raceTo}</strong></span>
+                <span className="whitespace-nowrap">Type: <strong className="text-white">{t.type}</strong></span>
               </div>
 
-              <div className="pt-3 border-t border-surface-border/60 flex items-center justify-between text-xs">
-                <span className="text-slate-muted">
+              <div className="pt-3 border-t border-surface-border/60 flex items-center justify-between text-xs gap-2">
+                <span className="text-slate-muted truncate">
                   Organizer: <strong className="text-white">{t.organizer.profile?.displayName}</strong>
                 </span>
 
                 <Link
                   href={`/tournaments/${t.slug}`}
-                  className="px-4 py-2 rounded-xl bg-brand text-black font-bold text-xs hover:bg-brand-hover shadow-glow flex items-center gap-1.5 transition-all"
+                  className="px-3.5 sm:px-4 py-2 rounded-xl bg-brand text-black font-bold text-xs hover:bg-brand-hover shadow-glow flex items-center gap-1.5 transition-all shrink-0 whitespace-nowrap"
                 >
-                  <span>Open Bracket &amp; Tables</span>
+                  <span>Open Bracket</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </Link>
               </div>

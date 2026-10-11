@@ -101,23 +101,23 @@ export default function RulesPage() {
       : articles.filter((a) => a.category === activeTab);
 
   return (
-    <div className="space-y-12 pb-20 max-w-4xl mx-auto">
+    <div className="space-y-8 sm:space-y-12 pb-20 max-w-4xl mx-auto">
       {/* Header Banner */}
-      <div className="space-y-3">
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand/10 border border-brand/30 text-brand text-xs font-semibold">
-          <BookOpen className="w-3.5 h-3.5" />
+      <div className="space-y-2.5 sm:space-y-3">
+        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand/10 border border-brand/30 text-brand text-xs font-semibold whitespace-nowrap">
+          <BookOpen className="w-3.5 h-3.5 shrink-0" />
           <span>Blackball South Africa (BSA) &amp; WPA Standards</span>
         </div>
-        <h1 className="text-3xl sm:text-4xl font-extrabold font-display text-white">
+        <h1 className="text-2xl sm:text-4xl font-extrabold font-display text-white">
           Official Rules &amp; Learning Library
         </h1>
-        <p className="text-sm text-slate-muted leading-relaxed">
+        <p className="text-xs sm:text-sm text-slate-muted leading-relaxed">
           The definitive rules handbook for competitive 8-ball in South Africa. Learn sanctioned procedures, dispel township street myths, and earn rule certification through the interactive quiz.
         </p>
       </div>
 
       {/* Category Filter Pills */}
-      <div className="flex flex-wrap items-center gap-2 border-b border-surface-border pb-4">
+      <div className="flex items-center gap-2 border-b border-surface-border pb-4 overflow-x-auto no-scrollbar whitespace-nowrap">
         {[
           { id: "ALL", label: "All Topics" },
           { id: "BLACKBALL_SA", label: "Blackball South Africa" },
@@ -126,7 +126,7 @@ export default function RulesPage() {
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id)}
-            className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all ${
+            className={`px-3.5 sm:px-4 py-2 rounded-xl text-xs font-semibold transition-all whitespace-nowrap ${
               activeTab === tab.id
                 ? "bg-brand text-black font-bold shadow-glow"
                 : "bg-surface-card text-slate-muted hover:text-white border border-surface-border"
@@ -234,7 +234,7 @@ export default function RulesPage() {
       </div>
 
       {/* Interactive Rules Certification Quiz Section */}
-      <section id="quiz" className="p-6 sm:p-8 rounded-3xl bg-surface-card border border-brand/30 shadow-2xl space-y-6">
+      <section id="quiz" className="p-4 sm:p-8 rounded-2xl sm:rounded-3xl bg-surface-card border border-brand/30 shadow-2xl space-y-4 sm:space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-surface-border pb-4">
           <div>
             <div className="inline-flex items-center gap-1.5 text-xs text-gold font-bold uppercase tracking-wider mb-1">

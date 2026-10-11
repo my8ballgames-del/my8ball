@@ -103,7 +103,7 @@ export default function ChallengesPage() {
   return (
     <div className="space-y-6 pb-12 max-w-4xl mx-auto">
       <div>
-        <h1 className="text-2xl sm:text-3xl font-extrabold font-display text-white">
+        <h1 className="text-xl sm:text-3xl font-extrabold font-display text-white">
           Challenge Match Hub
         </h1>
         <p className="text-xs text-slate-muted">
@@ -118,11 +118,11 @@ export default function ChallengesPage() {
         </div>
       )}
 
-      {/* Tabs */}
-      <div className="flex border-b border-surface-border gap-4">
+      {/* Tabs with safe horizontal scroll */}
+      <div className="flex border-b border-surface-border gap-4 overflow-x-auto no-scrollbar whitespace-nowrap">
         <button
           onClick={() => setTab("received")}
-          className={`pb-3 text-xs font-bold transition-all relative flex items-center gap-2 ${
+          className={`pb-3 text-xs font-bold transition-all relative flex items-center gap-2 whitespace-nowrap ${
             tab === "received" ? "text-brand" : "text-slate-muted hover:text-white"
           }`}
         >
@@ -137,7 +137,7 @@ export default function ChallengesPage() {
 
         <button
           onClick={() => setTab("sent")}
-          className={`pb-3 text-xs font-bold transition-all relative flex items-center gap-2 ${
+          className={`pb-3 text-xs font-bold transition-all relative flex items-center gap-2 whitespace-nowrap ${
             tab === "sent" ? "text-brand" : "text-slate-muted hover:text-white"
           }`}
         >
@@ -157,7 +157,7 @@ export default function ChallengesPage() {
           Loading challenge inbox...
         </div>
       ) : list.length === 0 ? (
-        <div className="p-12 text-center rounded-2xl bg-surface-card border border-surface-border space-y-3">
+        <div className="p-8 sm:p-12 text-center rounded-2xl bg-surface-card border border-surface-border space-y-3">
           <Swords className="w-10 h-10 text-slate-muted mx-auto" />
           <h3 className="text-base font-bold text-white">
             {tab === "received" ? "No incoming challenges" : "No outgoing challenges sent"}
@@ -173,7 +173,7 @@ export default function ChallengesPage() {
           </Link>
         </div>
       ) : (
-        <div className="space-y-4">
+        <div className="space-y-3.5 sm:space-y-4">
           {list.map((c) => {
             const isIncoming = tab === "received";
             const otherPlayer = isIncoming ? c.challenger : c.challenged;
@@ -183,12 +183,12 @@ export default function ChallengesPage() {
             return (
               <div
                 key={c.id}
-                className="p-5 rounded-2xl bg-surface-card border border-surface-border hover:border-brand/40 transition-all space-y-4"
+                className="p-4 sm:p-5 rounded-2xl bg-surface-card border border-surface-border hover:border-brand/40 transition-all space-y-3 sm:space-y-4"
               >
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-surface-border/60 pb-3">
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2 flex-wrap">
                     <span
-                      className={`text-[10px] uppercase font-bold px-2 py-0.5 rounded-full ${
+                      className={`text-[10px] uppercase font-bold px-2 py-0.5 rounded-full whitespace-nowrap ${
                         isPending
                           ? "bg-amber-950/50 text-amber-400 border border-amber-600/40"
                           : isInProgress
@@ -200,41 +200,41 @@ export default function ChallengesPage() {
                     >
                       {c.status.replace("_", " ")}
                     </span>
-                    <span className="text-xs font-semibold text-white">
+                    <span className="text-xs font-semibold text-white whitespace-nowrap">
                       Race to {c.raceTo} · {c.ruleset.replace("_", " ")}
                     </span>
                   </div>
 
-                  <span className="text-[11px] text-slate-muted">
+                  <span className="text-[11px] text-slate-muted whitespace-nowrap">
                     {c.isPlayNow ? "Play Now (Immediate)" : "Scheduled Match"}
                   </span>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 rounded-xl bg-surface-elevated border border-surface-border flex items-center justify-center font-bold text-white text-base">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                  <div className="flex items-center gap-3 min-w-0">
+                    <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-surface-elevated border border-surface-border flex items-center justify-center font-bold text-white text-base shrink-0">
                       {otherPlayer.profile.displayName[0]}
                     </div>
-                    <div>
-                      <p className="text-xs text-slate-muted">
+                    <div className="min-w-0">
+                      <p className="text-xs text-slate-muted whitespace-nowrap">
                         {isIncoming ? "Challenger:" : "Challenged:"}
                       </p>
-                      <p className="text-sm font-bold text-white">
+                      <p className="text-sm font-bold text-white truncate">
                         {otherPlayer.profile.displayName}
                       </p>
-                      <p className="text-xs text-slate-muted font-mono">
+                      <p className="text-xs text-slate-muted font-mono whitespace-nowrap">
                         {otherPlayer.profile.rating} ELO · {otherPlayer.profile.town}
                       </p>
                     </div>
                   </div>
 
-                  <div className="space-y-1 text-xs text-slate-muted">
+                  <div className="space-y-1 text-xs text-slate-muted min-w-0">
                     <div className="flex items-center gap-1.5">
                       <MapPin className="w-3.5 h-3.5 text-slate-muted shrink-0" />
                       <span className="truncate">{c.venue}</span>
                     </div>
                     {c.message && (
-                      <p className="italic text-slate-muted/80 bg-surface px-2.5 py-1 rounded-lg border border-surface-border/40">
+                      <p className="italic text-slate-muted/80 bg-surface px-2.5 py-1 rounded-lg border border-surface-border/40 truncate">
                         &quot;{c.message}&quot;
                       </p>
                     )}
@@ -242,21 +242,21 @@ export default function ChallengesPage() {
                 </div>
 
                 {/* Actions */}
-                <div className="pt-2 border-t border-surface-border/60 flex items-center justify-end gap-2">
+                <div className="pt-2 border-t border-surface-border/60 flex items-center justify-end gap-2 flex-wrap">
                   {isIncoming && isPending && (
                     <>
                       <button
                         onClick={() => handleRespond(c.id, "DECLINE")}
-                        className="px-4 py-2 rounded-xl bg-surface-elevated text-slate-muted hover:text-white text-xs font-semibold transition-colors"
+                        className="px-3.5 sm:px-4 py-2 rounded-xl bg-surface-elevated text-slate-muted hover:text-white text-xs font-semibold transition-colors whitespace-nowrap"
                       >
                         Decline
                       </button>
                       <button
                         onClick={() => handleRespond(c.id, "ACCEPT")}
-                        className="px-5 py-2 rounded-xl bg-brand text-black font-bold text-xs hover:bg-brand-hover shadow-glow flex items-center gap-1.5 transition-all"
+                        className="px-4 sm:px-5 py-2 rounded-xl bg-brand text-black font-bold text-xs hover:bg-brand-hover shadow-glow flex items-center gap-1.5 transition-all whitespace-nowrap"
                       >
                         <CheckCircle2 className="w-4 h-4" />
-                        <span>Accept &amp; Launch Match</span>
+                        <span>Accept &amp; Launch</span>
                       </button>
                     </>
                   )}
@@ -264,7 +264,7 @@ export default function ChallengesPage() {
                   {!isIncoming && isPending && (
                     <button
                       onClick={() => handleRespond(c.id, "CANCEL")}
-                      className="px-4 py-2 rounded-xl bg-surface-elevated text-slate-muted hover:text-red-400 text-xs font-semibold transition-colors"
+                      className="px-4 py-2 rounded-xl bg-surface-elevated text-slate-muted hover:text-red-400 text-xs font-semibold transition-colors whitespace-nowrap"
                     >
                       Cancel Challenge
                     </button>
@@ -273,7 +273,7 @@ export default function ChallengesPage() {
                   {isInProgress && c.matchId && (
                     <Link
                       href={`/matches/${c.matchId}`}
-                      className="px-5 py-2 rounded-xl bg-brand text-black font-bold text-xs hover:bg-brand-hover shadow-glow flex items-center gap-1.5 transition-all"
+                      className="px-4 sm:px-5 py-2 rounded-xl bg-brand text-black font-bold text-xs hover:bg-brand-hover shadow-glow flex items-center gap-1.5 transition-all whitespace-nowrap"
                     >
                       <Radio className="w-4 h-4 animate-pulse" />
                       <span>Open Live Scoreboard</span>

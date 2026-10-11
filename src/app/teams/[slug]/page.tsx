@@ -43,7 +43,7 @@ export default async function TeamDetailPage({
   }
 
   return (
-    <div className="space-y-8 pb-16 max-w-5xl mx-auto">
+    <div className="space-y-6 sm:space-y-8 pb-16 max-w-5xl mx-auto">
       <Link
         href="/teams"
         className="inline-flex items-center gap-1.5 text-xs text-slate-muted hover:text-white"
@@ -53,10 +53,10 @@ export default async function TeamDetailPage({
       </Link>
 
       {/* Team Header Banner */}
-      <div className="relative rounded-3xl overflow-hidden border border-surface-border bg-surface-card p-6 sm:p-10 shadow-2xl">
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
-          <div className="flex items-center gap-5">
-            <div className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-3xl overflow-hidden border-2 border-brand/40 shadow-glow">
+      <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden border border-surface-border bg-surface-card p-4 sm:p-8 shadow-2xl">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 sm:gap-6">
+          <div className="flex items-center gap-3.5 sm:gap-5 min-w-0">
+            <div className="relative w-14 h-14 sm:w-20 sm:h-20 rounded-2xl overflow-hidden border-2 border-brand/40 shadow-glow shrink-0">
               <Image
                 src={team.emblemUrl || "/assets/my8ball_logo.jpg"}
                 alt={team.name}
@@ -65,41 +65,41 @@ export default async function TeamDetailPage({
               />
             </div>
 
-            <div className="space-y-1">
-              <div className="flex items-center gap-2">
-                <span className="text-[10px] uppercase font-bold px-2.5 py-0.5 rounded-full bg-surface-elevated text-gold border border-gold/30">
+            <div className="space-y-1 min-w-0">
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className="text-[10px] uppercase font-bold px-2.5 py-0.5 rounded-full bg-surface-elevated text-gold border border-gold/30 whitespace-nowrap">
                   {team.division} SQUAD
                 </span>
-                <span className="text-xs text-slate-muted flex items-center gap-1">
+                <span className="text-xs text-slate-muted flex items-center gap-1 whitespace-nowrap">
                   <MapPin className="w-3.5 h-3.5" />
                   {team.town} · {team.homeVenue}
                 </span>
               </div>
 
-              <h1 className="text-2xl sm:text-3xl font-extrabold font-display text-white">
+              <h1 className="text-xl sm:text-3xl font-extrabold font-display text-white truncate">
                 {team.name}
               </h1>
 
-              <p className="text-xs text-slate-muted">
+              <p className="text-xs text-slate-muted truncate">
                 Captain: <strong className="text-white">{team.captain.profile?.displayName}</strong>
               </p>
             </div>
           </div>
 
-          <div className="flex items-center gap-4 bg-surface p-4 rounded-2xl border border-surface-border">
+          <div className="flex items-center gap-4 bg-surface p-3 sm:p-4 rounded-xl sm:rounded-2xl border border-surface-border w-full sm:w-auto justify-around sm:justify-start">
             <div>
-              <span className="text-[10px] text-slate-muted uppercase font-bold block">
+              <span className="text-[10px] text-slate-muted uppercase font-bold block whitespace-nowrap">
                 Team Rating
               </span>
-              <span className="font-mono text-2xl font-black text-brand">
+              <span className="font-mono text-xl sm:text-2xl font-black text-brand whitespace-nowrap">
                 {Math.round(team.rating)} ELO
               </span>
             </div>
             <div className="border-l border-surface-border pl-4">
-              <span className="text-[10px] text-slate-muted uppercase font-bold block">
+              <span className="text-[10px] text-slate-muted uppercase font-bold block whitespace-nowrap">
                 Record
               </span>
-              <span className="font-mono text-xl font-bold text-white">
+              <span className="font-mono text-lg sm:text-xl font-bold text-white whitespace-nowrap">
                 {team.wins}W - {team.losses}L
               </span>
             </div>
@@ -107,51 +107,51 @@ export default async function TeamDetailPage({
         </div>
 
         {team.description && (
-          <p className="mt-6 pt-4 border-t border-surface-border/60 text-xs text-slate-muted leading-relaxed">
+          <p className="mt-4 sm:mt-6 pt-3 sm:pt-4 border-t border-surface-border/60 text-xs text-slate-muted leading-relaxed">
             {team.description}
           </p>
         )}
       </div>
 
       {/* Roster & Squad Members Table */}
-      <div className="p-6 rounded-2xl bg-surface-card border border-surface-border space-y-4">
+      <div className="p-4 sm:p-6 rounded-2xl bg-surface-card border border-surface-border space-y-4">
         <div className="flex items-center justify-between">
-          <h2 className="text-base font-bold font-display text-white flex items-center gap-2">
-            <Users className="w-5 h-5 text-brand" />
+          <h2 className="text-sm sm:text-base font-bold font-display text-white flex items-center gap-2">
+            <Users className="w-4 sm:w-5 h-4 sm:h-5 text-brand shrink-0" />
             <span>Official Squad Roster</span>
           </h2>
-          <span className="text-xs font-mono text-slate-muted">
-            {team.members.length} Registered Members
+          <span className="text-[11px] sm:text-xs font-mono text-slate-muted whitespace-nowrap">
+            {team.members.length} Members
           </span>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2.5 sm:gap-3">
           {team.members.map((m) => {
             const isCap = m.role === "CAPTAIN";
             return (
               <div
                 key={m.id}
-                className="p-4 rounded-xl bg-surface border border-surface-border hover:border-brand/40 transition-all flex items-center justify-between"
+                className="p-3 sm:p-4 rounded-xl bg-surface border border-surface-border hover:border-brand/40 transition-all flex items-center justify-between gap-2"
               >
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-surface-elevated border border-surface-border flex items-center justify-center font-bold text-sm text-white">
+                <div className="flex items-center gap-3 min-w-0">
+                  <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-surface-elevated border border-surface-border flex items-center justify-center font-bold text-sm text-white shrink-0">
                     {m.user.profile?.displayName[0]}
                   </div>
-                  <div>
+                  <div className="min-w-0">
                     <Link
                       href={`/players/${m.user.profile?.username}`}
-                      className="font-bold text-xs text-white hover:text-brand transition-colors block"
+                      className="font-bold text-xs text-white hover:text-brand transition-colors block truncate"
                     >
                       {m.user.profile?.displayName}
                     </Link>
-                    <span className="text-[10px] font-mono text-slate-muted">
+                    <span className="text-[10px] font-mono text-slate-muted whitespace-nowrap">
                       {m.user.profile?.rating} ELO
                     </span>
                   </div>
                 </div>
 
                 <span
-                  className={`text-[9px] uppercase font-bold px-2 py-0.5 rounded-full ${
+                  className={`text-[9px] uppercase font-bold px-2 py-0.5 rounded-full shrink-0 whitespace-nowrap ${
                     isCap
                       ? "bg-gold/10 text-gold border border-gold/30"
                       : "bg-surface-elevated text-slate-muted border border-surface-border"

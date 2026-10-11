@@ -140,9 +140,9 @@ function PlayersContent() {
   return (
     <div className="space-y-6 pb-12">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold font-display text-white">
+          <h1 className="text-xl sm:text-3xl font-extrabold font-display text-white">
             Find Players &amp; Opponents
           </h1>
           <p className="text-xs text-slate-muted">
@@ -152,7 +152,7 @@ function PlayersContent() {
 
         <Link
           href="/challenges"
-          className="px-4 py-2 rounded-xl bg-surface-card border border-surface-border text-slate-muted hover:text-white text-xs font-semibold flex items-center gap-2 self-start sm:self-auto"
+          className="px-4 py-2 rounded-xl bg-surface-card border border-surface-border text-slate-muted hover:text-white text-xs font-semibold flex items-center gap-2 self-start sm:self-auto whitespace-nowrap"
         >
           <Swords className="w-4 h-4 text-brand" />
           <span>View My Challenges</span>
@@ -160,7 +160,7 @@ function PlayersContent() {
       </div>
 
       {/* Filters Bar */}
-      <div className="p-4 rounded-2xl bg-surface-card border border-surface-border grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+      <div className="p-3.5 sm:p-4 rounded-xl sm:rounded-2xl bg-surface-card border border-surface-border grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-3">
         {/* Search Input */}
         <div className="relative">
           <Search className="w-4 h-4 text-slate-muted absolute left-3 top-3" />
@@ -203,7 +203,7 @@ function PlayersContent() {
         <button
           type="button"
           onClick={() => setAvailableOnly(!availableOnly)}
-          className={`flex items-center justify-center gap-2 px-3 py-2 rounded-xl text-xs font-semibold border transition-all ${
+          className={`flex items-center justify-center gap-2 px-3 py-2 rounded-xl text-xs font-semibold border transition-all whitespace-nowrap ${
             availableOnly
               ? "bg-brand/10 border-brand text-brand shadow-glow"
               : "bg-surface-elevated border-surface-border text-slate-muted hover:text-white"
@@ -224,7 +224,7 @@ function PlayersContent() {
           Loading community competitors...
         </div>
       ) : players.length === 0 ? (
-        <div className="p-12 text-center rounded-2xl bg-surface-card border border-surface-border space-y-3">
+        <div className="p-8 sm:p-12 text-center rounded-2xl bg-surface-card border border-surface-border space-y-3">
           <Users className="w-10 h-10 text-slate-muted mx-auto" />
           <h3 className="text-base font-bold text-white">No players found matching criteria</h3>
           <p className="text-xs text-slate-muted max-w-sm mx-auto">
@@ -232,7 +232,7 @@ function PlayersContent() {
           </p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
           {players.map((p) => {
             const divColor = getDivisionColor(p.division);
             const isPlaying = p.status === "IN_MATCH";
@@ -241,73 +241,73 @@ function PlayersContent() {
             return (
               <div
                 key={p.id}
-                className="p-5 rounded-2xl bg-surface-card border border-surface-border hover:border-brand/40 transition-all space-y-4 relative"
+                className="p-4 sm:p-5 rounded-2xl bg-surface-card border border-surface-border hover:border-brand/40 transition-all space-y-3.5 sm:space-y-4 relative"
               >
-                <div className="flex items-start justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 rounded-xl bg-surface-elevated border border-surface-border flex items-center justify-center font-extrabold text-lg text-white">
+                <div className="flex items-start justify-between gap-2">
+                  <div className="flex items-center gap-3 min-w-0">
+                    <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-surface-elevated border border-surface-border flex items-center justify-center font-extrabold text-base sm:text-lg text-white shrink-0">
                       {p.displayName[0]}
                     </div>
-                    <div>
-                      <h3 className="text-sm font-bold text-white truncate max-w-[140px]">
+                    <div className="min-w-0">
+                      <h3 className="text-xs sm:text-sm font-bold text-white truncate max-w-[130px] sm:max-w-[160px]">
                         {p.displayName}
                       </h3>
-                      <p className="text-xs text-slate-muted font-mono truncate max-w-[140px]">
+                      <p className="text-[11px] sm:text-xs text-slate-muted font-mono truncate max-w-[130px] sm:max-w-[160px]">
                         @{p.username}
                       </p>
                     </div>
                   </div>
 
                   <span
-                    className={`text-[10px] uppercase font-bold px-2 py-0.5 rounded-full border ${divColor.bg} ${divColor.text} ${divColor.border}`}
+                    className={`text-[9px] sm:text-[10px] uppercase font-bold px-2 py-0.5 rounded-full border whitespace-nowrap shrink-0 ${divColor.bg} ${divColor.text} ${divColor.border}`}
                   >
                     {p.division}
                   </span>
                 </div>
 
                 <div className="space-y-1.5 text-xs text-slate-muted">
-                  <div className="flex items-center justify-between">
-                    <span className="flex items-center gap-1">
-                      <MapPin className="w-3.5 h-3.5 text-slate-muted" />
-                      <span>{p.town}, {p.province}</span>
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="flex items-center gap-1 truncate">
+                      <MapPin className="w-3.5 h-3.5 text-slate-muted shrink-0" />
+                      <span className="truncate">{p.town}, {p.province}</span>
                     </span>
-                    <span className="truncate max-w-[120px] font-medium text-slate-muted">
+                    <span className="truncate font-medium text-slate-muted shrink-0">
                       {p.club}
                     </span>
                   </div>
 
                   {p.primaryTeam && (
-                    <div className="flex items-center gap-1 text-gold text-[11px] font-semibold">
-                      <Shield className="w-3.5 h-3.5" />
-                      <span>{p.primaryTeam}</span>
+                    <div className="flex items-center gap-1 text-gold text-[11px] font-semibold truncate">
+                      <Shield className="w-3.5 h-3.5 shrink-0" />
+                      <span className="truncate">{p.primaryTeam}</span>
                     </div>
                   )}
                 </div>
 
-                {/* Performance Metrics */}
-                <div className="grid grid-cols-3 gap-2 py-2 px-3 rounded-xl bg-surface border border-surface-border/50 text-center text-xs">
-                  <div>
-                    <span className="text-[10px] text-slate-muted block">Elo</span>
-                    <span className="font-mono font-bold text-brand">{p.rating}</span>
+                {/* Performance Metrics with guaranteed horizontal labels & numbers */}
+                <div className="grid grid-cols-3 gap-1 sm:gap-2 py-2 px-2.5 sm:px-3 rounded-xl bg-surface border border-surface-border/50 text-center text-xs">
+                  <div className="px-1">
+                    <span className="text-[9px] sm:text-[10px] text-slate-muted block whitespace-nowrap">Elo</span>
+                    <span className="font-mono font-bold text-brand whitespace-nowrap text-xs sm:text-sm">{p.rating}</span>
                   </div>
-                  <div>
-                    <span className="text-[10px] text-slate-muted block">Win Rate</span>
-                    <span className="font-mono font-bold text-white">{p.winRate}%</span>
+                  <div className="px-1">
+                    <span className="text-[9px] sm:text-[10px] text-slate-muted block whitespace-nowrap">Win Rate</span>
+                    <span className="font-mono font-bold text-white whitespace-nowrap text-xs sm:text-sm">{p.winRate}%</span>
                   </div>
-                  <div>
-                    <span className="text-[10px] text-slate-muted block">Streak</span>
-                    <span className="font-mono font-bold text-gold flex items-center justify-center gap-0.5">
-                      <Flame className="w-3 h-3 fill-gold" />
+                  <div className="px-1">
+                    <span className="text-[9px] sm:text-[10px] text-slate-muted block whitespace-nowrap">Streak</span>
+                    <span className="font-mono font-bold text-gold flex items-center justify-center gap-0.5 whitespace-nowrap text-xs sm:text-sm">
+                      <Flame className="w-3 h-3 fill-gold shrink-0" />
                       {p.streak}
                     </span>
                   </div>
                 </div>
 
                 {/* Status indicator & Challenge button */}
-                <div className="pt-2 border-t border-surface-border/60 flex items-center justify-between gap-3">
-                  <div className="flex items-center gap-2">
+                <div className="pt-2 border-t border-surface-border/60 flex items-center justify-between gap-2">
+                  <div className="flex items-center gap-1.5 min-w-0">
                     <span
-                      className={`w-2 h-2 rounded-full ${
+                      className={`w-2 h-2 rounded-full shrink-0 ${
                         isAvail
                           ? "bg-brand animate-ping"
                           : isPlaying
@@ -315,15 +315,15 @@ function PlayersContent() {
                           : "bg-slate-500"
                       }`}
                     />
-                    <span className="text-[11px] text-slate-muted font-medium">
+                    <span className="text-[10px] sm:text-[11px] text-slate-muted font-medium truncate whitespace-nowrap">
                       {isAvail ? "Available" : isPlaying ? "In Match" : "Unavailable"}
                     </span>
                   </div>
 
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-1.5 shrink-0">
                     <Link
                       href={`/players/${p.username}`}
-                      className="px-2.5 py-1.5 rounded-lg bg-surface-elevated text-slate-muted hover:text-white text-xs font-semibold transition-colors"
+                      className="px-2.5 py-1.5 rounded-lg bg-surface-elevated text-slate-muted hover:text-white text-xs font-semibold transition-colors whitespace-nowrap"
                     >
                       Profile
                     </Link>
@@ -336,7 +336,7 @@ function PlayersContent() {
                         setChallengeError(null);
                         setChallengeSuccess(null);
                       }}
-                      className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
+                      className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all whitespace-nowrap ${
                         isPlaying
                           ? "bg-surface-elevated text-slate-500 cursor-not-allowed"
                           : "bg-brand text-black hover:bg-brand-hover shadow-glow"

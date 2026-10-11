@@ -65,9 +65,9 @@ export default function TeamsPage() {
 
   return (
     <div className="space-y-6 pb-16 max-w-5xl mx-auto">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold font-display text-white">
+          <h1 className="text-xl sm:text-3xl font-extrabold font-display text-white">
             Registered Teams &amp; Squads
           </h1>
           <p className="text-xs text-slate-muted">
@@ -77,7 +77,7 @@ export default function TeamsPage() {
 
         <Link
           href="/teams/create"
-          className="px-4 py-2.5 rounded-xl bg-brand text-black font-bold text-xs hover:bg-brand-hover shadow-glow flex items-center gap-2 self-start sm:self-auto transition-all"
+          className="px-4 py-2.5 rounded-xl bg-brand text-black font-bold text-xs hover:bg-brand-hover shadow-glow flex items-center gap-2 self-start sm:self-auto transition-all whitespace-nowrap"
         >
           <Plus className="w-4 h-4" />
           <span>Register New Team</span>
@@ -89,21 +89,21 @@ export default function TeamsPage() {
           Loading competitive teams...
         </div>
       ) : teams.length === 0 ? (
-        <div className="p-12 text-center rounded-2xl bg-surface-card border border-surface-border">
+        <div className="p-8 sm:p-12 text-center rounded-2xl bg-surface-card border border-surface-border">
           <Shield className="w-10 h-10 text-slate-muted mx-auto mb-2" />
           <h3 className="text-base font-bold text-white">No teams registered yet</h3>
           <p className="text-xs text-slate-muted mt-1">Be the first to register a squad in your community!</p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5 sm:gap-4">
           {teams.map((team, idx) => (
             <div
               key={team.id}
-              className="p-5 rounded-2xl bg-surface-card border border-surface-border hover:border-brand/40 transition-all space-y-4"
+              className="p-4 sm:p-5 rounded-2xl bg-surface-card border border-surface-border hover:border-brand/40 transition-all space-y-3.5 sm:space-y-4"
             >
-              <div className="flex items-start justify-between">
-                <div className="flex items-center gap-3">
-                  <div className="relative w-12 h-12 rounded-xl overflow-hidden border border-brand/30 shadow-glow">
+              <div className="flex items-start justify-between gap-2">
+                <div className="flex items-center gap-3 min-w-0">
+                  <div className="relative w-11 h-11 sm:w-12 sm:h-12 rounded-xl overflow-hidden border border-brand/30 shadow-glow shrink-0">
                     <Image
                       src={team.emblemUrl || "/assets/my8ball_logo.jpg"}
                       alt={team.name}
@@ -111,16 +111,16 @@ export default function TeamsPage() {
                       className="object-cover"
                     />
                   </div>
-                  <div>
-                    <h3 className="text-base font-bold text-white">{team.name}</h3>
-                    <p className="text-xs text-slate-muted flex items-center gap-1">
-                      <MapPin className="w-3.5 h-3.5" />
-                      {team.town} · {team.homeVenue}
+                  <div className="min-w-0">
+                    <h3 className="text-sm sm:text-base font-bold text-white truncate">{team.name}</h3>
+                    <p className="text-xs text-slate-muted flex items-center gap-1 truncate">
+                      <MapPin className="w-3.5 h-3.5 shrink-0" />
+                      <span className="truncate">{team.town} · {team.homeVenue}</span>
                     </p>
                   </div>
                 </div>
 
-                <span className="font-mono font-black text-sm text-gold px-2.5 py-1 rounded-lg bg-surface border border-surface-border">
+                <span className="font-mono font-black text-xs sm:text-sm text-gold px-2.5 py-1 rounded-lg bg-surface border border-surface-border whitespace-nowrap shrink-0">
                   #{idx + 1}
                 </span>
               </div>
@@ -130,25 +130,25 @@ export default function TeamsPage() {
               </p>
 
               {/* Roster preview */}
-              <div className="pt-2 border-t border-surface-border/60 flex items-center justify-between text-xs">
-                <div className="flex items-center gap-2 text-slate-muted">
-                  <Users className="w-3.5 h-3.5" />
-                  <span>
+              <div className="pt-2 border-t border-surface-border/60 flex items-center justify-between text-xs gap-2">
+                <div className="flex items-center gap-1.5 text-slate-muted truncate">
+                  <Users className="w-3.5 h-3.5 shrink-0" />
+                  <span className="truncate">
                     Captain: <strong className="text-white">{team.captain.displayName}</strong>
                   </span>
                 </div>
-                <span className="font-mono font-bold text-brand">
+                <span className="font-mono font-bold text-brand whitespace-nowrap shrink-0">
                   {team.rating} Team ELO
                 </span>
               </div>
 
-              <div className="pt-2 border-t border-surface-border/60 flex items-center justify-between">
-                <span className="text-[11px] text-slate-muted font-mono">
+              <div className="pt-2 border-t border-surface-border/60 flex items-center justify-between text-xs gap-2">
+                <span className="text-[11px] text-slate-muted font-mono whitespace-nowrap">
                   {team.memberCount} Squad Members
                 </span>
                 <Link
                   href={`/teams/${team.slug}`}
-                  className="text-xs font-bold text-brand hover:underline flex items-center gap-1"
+                  className="text-xs font-bold text-brand hover:underline flex items-center gap-1 whitespace-nowrap shrink-0"
                 >
                   <span>Team Profile &amp; Roster</span>
                   <ChevronRight className="w-3.5 h-3.5" />
