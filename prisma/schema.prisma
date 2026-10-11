@@ -1,0 +1,453 @@
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id           String      @id @default(cuid())
+  email        String      @unique
+  passwordHash String
+  role         String      @default("PLAYER") // SUPER_ADMIN, MODERATOR, ORGANIZER, REFEREE, CAPTAIN, PLAYER
+  isVerified   Boolean     @default(true)
+  isSuspended  Boolean     @default(false)
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+
+  profile      Profile?
+  availability UserAvailability?
+  privacy      UserPrivacy?
+
+  // Challenges
+  challengesSent     Challenge[] @relation("ChallengerUser")
+  challengesReceived Challenge[] @relation("ChallengedUser")
+
+  // Matches
+  matchesAsPlayer1 Match[] @relation("MatchPlayer1")
+  matchesAsPlayer2 Match[] @relation("MatchPlayer2")
+  matchesWon       Match[] @relation("MatchWinner")
+
+  // Ratings
+  ratingHistories RatingHistory[]
+
+  // Teams
+  teamMemberships TeamMember[]
+  captainOfTeams  Team[]       @relation("TeamCaptain")
+
+  // Leagues & Tournaments
+  organizedLeagues     League[]                 @relation("LeagueOrganizer")
+  organizedTournaments Tournament[]             @relation("TournamentOrganizer")
+  tournamentEntries    TournamentRegistration[]
+  leagueParticipations LeagueParticipant[]
+
+  // Achievements
+  achievements UserAchievement[]
+
+  // Notifications
+  notifications Notification[]
+
+  // Disputes & Audits
+  raisedDisputes   Dispute[]  @relation("DisputeRaiser")
+  resolvedDisputes Dispute[]  @relation("DisputeResolver")
+  auditLogs        AuditLog[]
+}
+
+model Profile {
+  id                 String     @id @default(cuid())
+  userId             String     @unique
+  user               User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  username           String     @unique
+  displayName        String
+  avatarUrl          String?
+  bio                String?
+  country            String     @default("South Africa")
+  province           String     @default("Limpopo")
+  town               String     @default("Mpheni")
+  club               String?    @default("Mpheni Legends Pool Club")
+  preferredRuleSet   String     @default("BLACKBALL_SA") // BLACKBALL_SA, BLACKBALL_INTL, WPA_8BALL, HOUSE_RULES
+  skillLevel         String     @default("INTERMEDIATE") // BEGINNER, INTERMEDIATE, ADVANCED, SEMI_PRO, PRO
+  rating             Float      @default(1200.0)
+  peakRating         Float      @default(1200.0)
+  division           String     @default("BRONZE") // ROOKIE, BRONZE, SILVER, GOLD, PLATINUM, DIAMOND, CHAMPION, ELITE
+  provisionalMatches Int        @default(0)
+  matchesPlayed      Int        @default(0)
+  matchesWon         Int        @default(0)
+  matchesLost        Int        @default(0)
+  framesWon          Int        @default(0)
+  framesLost         Int        @default(0)
+  currentStreak      Int        @default(0)
+  bestStreak         Int        @default(0)
+  updatedAt          DateTime   @updatedAt
+}
+
+model UserAvailability {
+  id                     String   @id @default(cuid())
+  userId                 String   @unique
+  user                   User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  status                 String   @default("AVAILABLE_INDIVIDUAL") // OFFLINE, ONLINE_UNAVAILABLE, AVAILABLE_INDIVIDUAL, AVAILABLE_TEAM, AVAILABLE_BOTH, IN_MATCH, AWAY
+  isAvailable            Boolean  @default(true)
+  availableForIndividual Boolean  @default(true)
+  availableForTeam       Boolean  @default(false)
+  preferredVenue         String?  @default("Local Club")
+  preferredRuleSet       String   @default("BLACKBALL_SA")
+  activeMatchId          String?
+  updatedAt              DateTime @updatedAt
+}
+
+model UserPrivacy {
+  id                  String   @id @default(cuid())
+  userId              String   @unique
+  user                User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  locationVisibility  String   @default("TOWN") // EXACT, TOWN, PROVINCE, HIDDEN
+  profileVisibility   String   @default("PUBLIC") // PUBLIC, REGISTERED_ONLY, PRIVATE
+  allowChallenges     Boolean  @default(true)
+  showStats           Boolean  @default(true)
+}
+
+model Challenge {
+  id            String   @id @default(cuid())
+  challengerId  String
+  challengedId  String
+  challenger    User     @relation("ChallengerUser", fields: [challengerId], references: [id], onDelete: Cascade)
+  challenged    User     @relation("ChallengedUser", fields: [challengedId], references: [id], onDelete: Cascade)
+  type          String   @default("INDIVIDUAL") // INDIVIDUAL, TEAM
+  ruleset       String   @default("BLACKBALL_SA")
+  raceTo        Int      @default(5)
+  isPlayNow     Boolean  @default(true)
+  scheduledTime DateTime?
+  venue         String?  @default("Community Club Arena")
+  message       String?
+  status        String   @default("PENDING") // PENDING, ACCEPTED, DECLINED, CANCELLED, EXPIRED, IN_PROGRESS, COMPLETED, DISPUTED
+  expiresAt     DateTime
+  matchId       String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  match         Match?
+}
+
+model Match {
+  id             String      @id @default(cuid())
+  challengeId    String?     @unique
+  challenge      Challenge?  @relation(fields: [challengeId], references: [id])
+  type           String      @default("INDIVIDUAL") // INDIVIDUAL, TEAM
+  ruleset        String      @default("BLACKBALL_SA")
+  rulesetVersion String      @default("2026.01-WPA/BSA")
+  raceTo         Int         @default(5)
+  status         String      @default("IN_PROGRESS") // SCHEDULED, IN_PROGRESS, AWAITING_CONFIRMATION, COMPLETED, DISPUTED, VOIDED
+  venue          String?     @default("Mpheni Pool Hall - Table 1")
+  tableNumber    Int?        @default(1)
+
+  // Participants
+  player1Id      String
+  player2Id      String
+  player1        User        @relation("MatchPlayer1", fields: [player1Id], references: [id])
+  player2        User        @relation("MatchPlayer2", fields: [player2Id], references: [id])
+
+  team1Id        String?
+  team2Id        String?
+  team1          Team?       @relation("MatchTeam1", fields: [team1Id], references: [id])
+  team2          Team?       @relation("MatchTeam2", fields: [team2Id], references: [id])
+
+  // Scores
+  scorePlayer1   Int         @default(0)
+  scorePlayer2   Int         @default(0)
+  winnerId       String?
+  winner         User?       @relation("MatchWinner", fields: [winnerId], references: [id])
+
+  // Context & Competitions
+  leagueId       String?
+  league         League?     @relation(fields: [leagueId], references: [id])
+  tournamentId   String?
+  tournament     Tournament? @relation(fields: [tournamentId], references: [id])
+
+  // Timestamps
+  scheduledAt    DateTime?
+  startedAt      DateTime?   @default(now())
+  endedAt        DateTime?
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+
+  // Relations
+  frames         MatchFrame[]
+  confirmation   MatchConfirmation?
+  disputes       Dispute[]
+  ratingHistories RatingHistory[]
+}
+
+model MatchFrame {
+  id              String   @id @default(cuid())
+  matchId         String
+  match           Match    @relation(fields: [matchId], references: [id], onDelete: Cascade)
+  frameNumber     Int
+  winnerId        String
+  breakPlayerId   String?
+  foulEvent       String?  // FOUL_CUE_SCRATCH, FOUL_OPPONENT_BALL, LOSS_OF_FRAME_BLACK, LEGAL_CLEARANCE
+  durationSeconds Int?     @default(180)
+  notes           String?
+  createdAt       DateTime @default(now())
+}
+
+model MatchConfirmation {
+  id                  String   @id @default(cuid())
+  matchId             String   @unique
+  match               Match    @relation(fields: [matchId], references: [id], onDelete: Cascade)
+  player1Confirmed    Boolean  @default(false)
+  player2Confirmed    Boolean  @default(false)
+  player1ConfirmedAt  DateTime?
+  player2ConfirmedAt  DateTime?
+  isConfirmed         Boolean  @default(false)
+  disputed            Boolean  @default(false)
+  createdAt           DateTime @default(now())
+}
+
+model RatingHistory {
+  id             String   @id @default(cuid())
+  userId         String
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  matchId        String
+  match          Match    @relation(fields: [matchId], references: [id], onDelete: Cascade)
+  oldRating      Float
+  newRating      Float
+  change         Float
+  opponentId     String
+  opponentRating Float
+  createdAt      DateTime @default(now())
+}
+
+model Team {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  slug        String   @unique
+  emblemUrl   String?
+  description String?
+  town        String   @default("Mpheni")
+  homeVenue   String?  @default("Community Club")
+  captainId   String
+  captain     User     @relation("TeamCaptain", fields: [captainId], references: [id])
+  rating      Float    @default(1200.0)
+  division    String   @default("BRONZE")
+  wins        Int      @default(0)
+  losses      Int      @default(0)
+  draws       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  members      TeamMember[]
+  matchesAs1   Match[]              @relation("MatchTeam1")
+  matchesAs2   Match[]              @relation("MatchTeam2")
+  fixturesAs1  Fixture[]            @relation("FixtureTeam1")
+  fixturesAs2  Fixture[]            @relation("FixtureTeam2")
+  tournaments  TournamentRegistration[]
+  leagues      LeagueParticipant[]
+}
+
+model TeamMember {
+  id        String   @id @default(cuid())
+  teamId    String
+  team      Team     @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  role      String   @default("MEMBER") // CAPTAIN, VICE_CAPTAIN, MEMBER
+  joinedAt  DateTime @default(now())
+
+  @@unique([teamId, userId])
+}
+
+model League {
+  id              String   @id @default(cuid())
+  name            String
+  slug            String   @unique
+  emblemUrl       String?
+  description     String?
+  location        String   @default("Mpheni Community")
+  organizerId     String
+  organizer       User     @relation("LeagueOrganizer", fields: [organizerId], references: [id])
+  competitionType String   @default("TEAM") // INDIVIDUAL, TEAM
+  ruleset         String   @default("BLACKBALL_SA")
+  format          String   @default("ROUND_ROBIN") // ROUND_ROBIN, DOUBLE_ROUND_ROBIN, KNOCKOUT, GROUP_KNOCKOUT
+  raceTo          Int      @default(5)
+  pointsWin       Int      @default(3)
+  pointsDraw      Int      @default(1)
+  pointsLoss      Int      @default(0)
+  status          String   @default("ACTIVE") // REGISTRATION, ACTIVE, COMPLETED, ARCHIVED
+  startDate       DateTime @default(now())
+  endDate         DateTime?
+  edition         Int      @default(1)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  participants    LeagueParticipant[]
+  fixtures        Fixture[]
+  matches         Match[]
+  tournaments     Tournament[]
+}
+
+model LeagueParticipant {
+  id           String   @id @default(cuid())
+  leagueId     String
+  league       League   @relation(fields: [leagueId], references: [id], onDelete: Cascade)
+  userId       String?
+  user         User?    @relation(fields: [userId], references: [id])
+  teamId       String?
+  team         Team?    @relation(fields: [teamId], references: [id])
+  points       Int      @default(0)
+  played       Int      @default(0)
+  wins         Int      @default(0)
+  draws        Int      @default(0)
+  losses       Int      @default(0)
+  framesWon    Int      @default(0)
+  framesLost   Int      @default(0)
+  standing     Int      @default(1)
+  createdAt    DateTime @default(now())
+}
+
+model Tournament {
+  id              String   @id @default(cuid())
+  name            String
+  slug            String   @unique
+  posterUrl       String?
+  organizerId     String
+  organizer       User     @relation("TournamentOrganizer", fields: [organizerId], references: [id])
+  leagueId        String?
+  league          League?  @relation(fields: [leagueId], references: [id])
+  location        String   @default("Mpheni Community Hall")
+  venue           String   @default("Mpheni Legends Club")
+  ruleset         String   @default("BLACKBALL_SA")
+  format          String   @default("GROUP_KNOCKOUT") // SINGLE_ELIMINATION, ROUND_ROBIN, GROUP_KNOCKOUT
+  type            String   @default("TEAM") // INDIVIDUAL, TEAM
+  raceTo          Int      @default(5)
+  numTables       Int      @default(3)
+  maxParticipants Int      @default(8)
+  status          String   @default("IN_PROGRESS") // UPCOMING, REGISTRATION, IN_PROGRESS, COMPLETED
+  startDate       DateTime @default(now())
+  endDate         DateTime?
+  winnerId        String?
+  runnerUpId      String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  registrations   TournamentRegistration[]
+  fixtures        Fixture[]
+  matches         Match[]
+}
+
+model TournamentRegistration {
+  id           String     @id @default(cuid())
+  tournamentId String
+  tournament   Tournament @relation(fields: [tournamentId], references: [id], onDelete: Cascade)
+  userId       String?
+  user         User?      @relation(fields: [userId], references: [id])
+  teamId       String?
+  team         Team?      @relation(fields: [teamId], references: [id])
+  seed         Int        @default(1)
+  status       String     @default("CONFIRMED") // PENDING, CONFIRMED, ELIMINATED
+  createdAt    DateTime   @default(now())
+}
+
+model Fixture {
+  id           String      @id @default(cuid())
+  leagueId     String?
+  league       League?     @relation(fields: [leagueId], references: [id], onDelete: Cascade)
+  tournamentId String?
+  tournament   Tournament? @relation(fields: [tournamentId], references: [id], onDelete: Cascade)
+  round        String      @default("Round 1")
+  tableNumber  Int         @default(1)
+  player1Id    String?
+  player2Id    String?
+  team1Id      String?
+  team1        Team?       @relation("FixtureTeam1", fields: [team1Id], references: [id])
+  team2Id      String?
+  team2        Team?       @relation("FixtureTeam2", fields: [team2Id], references: [id])
+  score1       Int         @default(0)
+  score2       Int         @default(0)
+  winnerId     String?
+  status       String      @default("PENDING") // PENDING, LIVE, COMPLETED
+  scheduledAt  DateTime?
+  matchId      String?
+  createdAt    DateTime    @default(now())
+}
+
+model RuleArticle {
+  id               String   @id @default(cuid())
+  slug             String   @unique
+  category         String   @default("BLACKBALL_SA")
+  title            String
+  summary          String
+  officialRuleText String
+  playerAdvice     String
+  foulPenalty      String
+  practicalExample String
+  version          String   @default("2026.01")
+  orderIndex       Int      @default(0)
+  createdAt        DateTime @default(now())
+}
+
+model Achievement {
+  id          String   @id @default(cuid())
+  code        String   @unique
+  title       String
+  description String
+  iconName    String   @default("Trophy")
+  category    String   @default("COMPETITION") // MATCHES, STREAK, LEAGUE, TOURNAMENT, COMMUNITY
+  rarity      String   @default("COMMON") // COMMON, RARE, EPIC, LEGENDARY
+  points      Int      @default(50)
+  createdAt   DateTime @default(now())
+
+  userAchievements UserAchievement[]
+}
+
+model UserAchievement {
+  id            String      @id @default(cuid())
+  userId        String
+  user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  achievementId String
+  achievement   Achievement @relation(fields: [achievementId], references: [id], onDelete: Cascade)
+  awardedAt     DateTime    @default(now())
+  matchId       String?
+
+  @@unique([userId, achievementId])
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type      String   @default("INFO") // CHALLENGE_RECEIVED, CHALLENGE_ACCEPTED, MATCH_STARTED, RESULT_CONFIRMATION, TOURNAMENT_UPDATE, ACHIEVEMENT_UNLOCKED
+  title     String
+  message   String
+  link      String?
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model Dispute {
+  id              String   @id @default(cuid())
+  matchId         String
+  match           Match    @relation(fields: [matchId], references: [id], onDelete: Cascade)
+  raisedById      String
+  raisedBy        User     @relation("DisputeRaiser", fields: [raisedById], references: [id])
+  reason          String
+  evidenceNotes   String?
+  status          String   @default("OPEN") // OPEN, UNDER_REVIEW, RESOLVED, REJECTED
+  resolvedById    String?
+  resolvedBy      User?    @relation("DisputeResolver", fields: [resolvedById], references: [id])
+  resolutionNotes String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model AuditLog {
+  id         String   @id @default(cuid())
+  userId     String?
+  user       User?    @relation(fields: [userId], references: [id])
+  action     String
+  entityType String
+  entityId   String
+  details    String?
+  ipAddress  String?  @default("127.0.0.1")
+  createdAt  DateTime @default(now())
+}
