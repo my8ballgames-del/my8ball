@@ -132,7 +132,7 @@ async function main() {
       officialRuleText: "If the 8-ball is pocketed on a legal break shot, the breaker has the choice of: (a) spotting the 8-ball and continuing their visit, or (b) re-racking all balls and breaking again. It is NOT an instant win or loss of frame.",
       playerAdvice: "Check your local league regulations. In standard Blackball SA, potting the black on the break is not an automatic win.",
       foulPenalty: "If the breaker pots the 8-ball AND scratches the cue ball, it is a foul. The incoming player can spot the 8-ball and take a free shot from baulk, or re-rack.",
-      practicalExample: "Sipho smashes the break and the 8-ball drops cleanly into the corner. Under BSA rules, the balls are re-racked or the 8-ball is respotted for Sipho to continue.",
+      practicalExample: "Boyka smashes the break and the 8-ball drops cleanly into the corner. Under BSA rules, the balls are re-racked or the 8-ball is respotted for Boyka to continue.",
       orderIndex: 3,
     },
     {
@@ -154,7 +154,7 @@ async function main() {
       officialRuleText: "Following any standard foul by an opponent, the incoming player receives ONE FREE SHOT followed by normal play. On the free shot, the player may legally strike and pot ANY ball on the table (including the opponent's ball or the 8-ball, provided the 8-ball is respotted if potted before the player's group is cleared).",
       playerAdvice: "Use the free shot tactically! You can use your opponent's ball to clear a cluster or pot your opponent's obstructing ball.",
       foulPenalty: "Foul gives one free shot + continuation visit (often colloquially referred to as 'two shots', but Blackball free shot rules apply).",
-      practicalExample: "Tshepo fouls by cue scratch. Sipho places the cue ball anywhere in baulk, takes a free shot to blast away Tshepo's blocking ball into a pocket, and then retains his normal turn.",
+      practicalExample: "Shoni fouls by cue scratch. Talifhani places the cue ball anywhere in baulk, takes a free shot to blast away Shoni's blocking ball, and then retains his normal turn.",
       orderIndex: 5,
     },
     {
@@ -185,7 +185,7 @@ async function main() {
     await prisma.ruleArticle.create({ data: rule });
   }
 
-  console.log("Seeding Users & Profiles...");
+  console.log("Seeding Users & Profiles with Authentic Players...");
   const passwordHash = await bcrypt.hash("Password123!", 10);
 
   const usersList = [
@@ -232,130 +232,277 @@ async function main() {
       bio: "Founder of the Mpheni Community Pool League. Organizing tournaments since 2018.",
     },
     {
-      email: "kgothatso@my8ball.co.za",
+      email: "talifhani@my8ball.co.za",
       role: "PLAYER",
-      username: "kgothatso_sniper",
-      displayName: "Kgothatso 'The Sniper' Nemavhola",
+      username: "talifhani_boyka",
+      displayName: "Talifhani (Boyka)",
       town: "Mpheni",
       province: "Limpopo",
       club: "Mpheni Legends Pool Club",
       skillLevel: "PRO",
-      rating: 1680,
-      division: "PLATINUM",
-      provisionalMatches: 20,
-      matchesPlayed: 34,
-      matchesWon: 29,
-      matchesLost: 5,
-      framesWon: 142,
-      framesLost: 49,
-      currentStreak: 6,
-      bestStreak: 11,
-      bio: "Reigning Mpheni Town Champion. Blackball master with deadly cue ball precision.",
+      rating: 1780,
+      division: "DIAMOND",
+      provisionalMatches: 25,
+      matchesPlayed: 42,
+      matchesWon: 36,
+      matchesLost: 6,
+      framesWon: 172,
+      framesLost: 48,
+      currentStreak: 8,
+      bestStreak: 15,
+      bio: "Town Champion known for fearless break shots and uncompromising table clearances.",
     },
     {
-      email: "tshepo@my8ball.co.za",
+      email: "lucky@my8ball.co.za",
       role: "PLAYER",
-      username: "tshepo_ghost",
-      displayName: "Tshepo 'Ghost' Baloyi",
+      username: "lucky_sniper",
+      displayName: "Lucky Khosa (Sniper)",
+      town: "Mpheni",
+      province: "Limpopo",
+      club: "Mpheni Cue Masters",
+      skillLevel: "PRO",
+      rating: 1710,
+      division: "DIAMOND",
+      provisionalMatches: 22,
+      matchesPlayed: 38,
+      matchesWon: 31,
+      matchesLost: 7,
+      framesWon: 154,
+      framesLost: 56,
+      currentStreak: 5,
+      bestStreak: 12,
+      bio: "Precision cue ball artist with long potting accuracy across the table.",
+    },
+    {
+      email: "success@my8ball.co.za",
+      role: "PLAYER",
+      username: "success_godfather",
+      displayName: "Success (The Godfather)",
       town: "Elim",
       province: "Limpopo",
-      club: "Elim Cue Masters",
-      skillLevel: "ADVANCED",
-      rating: 1540,
-      division: "GOLD",
-      provisionalMatches: 18,
-      matchesPlayed: 30,
-      matchesWon: 21,
-      matchesLost: 9,
-      framesWon: 112,
-      framesLost: 68,
-      currentStreak: 3,
-      bestStreak: 7,
-      bio: "Elim pool hall captain. Fast player, specialized in combination shots and bank clears.",
+      club: "Elim Blackball Titans",
+      skillLevel: "PRO",
+      rating: 1660,
+      division: "PLATINUM",
+      provisionalMatches: 20,
+      matchesPlayed: 35,
+      matchesWon: 28,
+      matchesLost: 7,
+      framesWon: 138,
+      framesLost: 58,
+      currentStreak: 4,
+      bestStreak: 10,
+      bio: "Tactical strategist and captain of Elim Blackball Titans. Master of safety snookers.",
     },
     {
-      email: "lufuno@my8ball.co.za",
+      email: "shoni@my8ball.co.za",
       role: "PLAYER",
-      username: "lufuno_spin",
-      displayName: "Lufuno 'Spin Doctor' Ramabulana",
+      username: "shoni_problem",
+      displayName: "Shoni (The Problem)",
       town: "Thohoyandou",
       province: "Limpopo",
       club: "Venda Royal Shooters",
       skillLevel: "ADVANCED",
-      rating: 1490,
-      division: "SILVER",
-      provisionalMatches: 14,
-      matchesPlayed: 24,
-      matchesWon: 15,
-      matchesLost: 9,
-      framesWon: 89,
-      framesLost: 61,
-      currentStreak: 1,
-      bestStreak: 6,
-      bio: "Thohoyandou tactical player. Defensive master who waits for the opponent to blunder.",
+      rating: 1590,
+      division: "GOLD",
+      provisionalMatches: 18,
+      matchesPlayed: 30,
+      matchesWon: 22,
+      matchesLost: 8,
+      framesWon: 116,
+      framesLost: 68,
+      currentStreak: 3,
+      bestStreak: 8,
+      bio: "High-tempo attacking pool master creating problems for opponents on every visit.",
     },
     {
-      email: "sipho@my8ball.co.za",
+      email: "vhutshilo@my8ball.co.za",
       role: "PLAYER",
-      username: "sipho_king",
-      displayName: "Sipho 'The Blackball King' Dlamini",
-      town: "Soweto",
-      province: "Gauteng",
-      club: "Orlando Pool Club",
-      skillLevel: "PRO",
-      rating: 1720,
-      division: "DIAMOND",
-      provisionalMatches: 22,
-      matchesPlayed: 40,
-      matchesWon: 33,
-      matchesLost: 7,
-      framesWon: 164,
-      framesLost: 52,
-      currentStreak: 5,
-      bestStreak: 14,
-      bio: "National competitor from Soweto. Multiple provincial championship titles.",
-    },
-    {
-      email: "thabo@my8ball.co.za",
-      role: "PLAYER",
-      username: "thabo_ace",
-      displayName: "Thabo '8-Ball Ace' Ndlovu",
+      username: "vhutshilo_gusba",
+      displayName: "Vhutshilo (Gusba)",
       town: "Mpheni",
       province: "Limpopo",
       club: "Mpheni Legends Pool Club",
+      skillLevel: "ADVANCED",
+      rating: 1530,
+      division: "GOLD",
+      provisionalMatches: 16,
+      matchesPlayed: 27,
+      matchesWon: 19,
+      matchesLost: 8,
+      framesWon: 102,
+      framesLost: 66,
+      currentStreak: 2,
+      bestStreak: 7,
+      bio: "Mpheni regular with sharp banking shots and defensive composure.",
+    },
+    {
+      email: "thabelo@my8ball.co.za",
+      role: "PLAYER",
+      username: "thabelo_caeser",
+      displayName: "Thabelo (Caeser)",
+      town: "Makhado",
+      province: "Limpopo",
+      club: "Makhado Cue Guild",
+      skillLevel: "ADVANCED",
+      rating: 1480,
+      division: "SILVER",
+      provisionalMatches: 15,
+      matchesPlayed: 24,
+      matchesWon: 16,
+      matchesLost: 8,
+      framesWon: 88,
+      framesLost: 62,
+      currentStreak: 1,
+      bestStreak: 6,
+      bio: "Ruler of the table under pressure, specialized in tight cushion cut-shots.",
+    },
+    {
+      email: "lufuno@my8ball.co.za",
+      role: "PLAYER",
+      username: "lufuno_sbalo",
+      displayName: "Lufuno (Sbalo)",
+      town: "Thohoyandou",
+      province: "Limpopo",
+      club: "Venda Royal Shooters",
+      skillLevel: "ADVANCED",
+      rating: 1450,
+      division: "SILVER",
+      provisionalMatches: 14,
+      matchesPlayed: 23,
+      matchesWon: 15,
+      matchesLost: 8,
+      framesWon: 82,
+      framesLost: 64,
+      currentStreak: 2,
+      bestStreak: 6,
+      bio: "Venda cue master focused on patient positional control and frame management.",
+    },
+    {
+      email: "owen@my8ball.co.za",
+      role: "PLAYER",
+      username: "owen_pool",
+      displayName: "Owen",
+      town: "Elim",
+      province: "Limpopo",
+      club: "Elim Cue Arena",
       skillLevel: "INTERMEDIATE",
       rating: 1390,
       division: "SILVER",
-      provisionalMatches: 12,
-      matchesPlayed: 19,
-      matchesWon: 11,
+      provisionalMatches: 13,
+      matchesPlayed: 20,
+      matchesWon: 12,
       matchesLost: 8,
-      framesWon: 67,
+      framesWon: 68,
       framesLost: 58,
       currentStreak: 0,
-      bestStreak: 4,
-      bio: "Community player aiming for Gold division. Always up for a race to 5.",
+      bestStreak: 5,
+      bio: "Elim pool hall fighter aiming to reach the Gold tier this season.",
     },
     {
-      email: "ndivhuwo@my8ball.co.za",
+      email: "maguga@my8ball.co.za",
       role: "PLAYER",
-      username: "ndivhuwo_cue",
-      displayName: "Ndivhuwo Madzhie",
+      username: "maguga_andani",
+      displayName: "Maguga Andani",
       town: "Mpheni",
       province: "Limpopo",
       club: "Mpheni Legends Pool Club",
       skillLevel: "INTERMEDIATE",
-      rating: 1220,
+      rating: 1350,
+      division: "SILVER",
+      provisionalMatches: 12,
+      matchesPlayed: 18,
+      matchesWon: 10,
+      matchesLost: 8,
+      framesWon: 58,
+      framesLost: 54,
+      currentStreak: 1,
+      bestStreak: 4,
+      bio: "Steady and determined tournament contender from Mpheni.",
+    },
+    {
+      email: "godfrey@my8ball.co.za",
+      role: "PLAYER",
+      username: "godfrey_ludere",
+      displayName: "Godfrey Ludere",
+      town: "Polokwane",
+      province: "Limpopo",
+      club: "Limpopo Spin Hawks",
+      skillLevel: "INTERMEDIATE",
+      rating: 1320,
+      division: "BRONZE",
+      provisionalMatches: 10,
+      matchesPlayed: 16,
+      matchesWon: 9,
+      matchesLost: 7,
+      framesWon: 52,
+      framesLost: 48,
+      currentStreak: 0,
+      bestStreak: 4,
+      bio: "Competitive player with deep passion for regional league fixtures.",
+    },
+    {
+      email: "mrlee@my8ball.co.za",
+      role: "PLAYER",
+      username: "mr_lee_thanz",
+      displayName: "Mr Lee (Thanz)",
+      town: "Mpheni",
+      province: "Limpopo",
+      club: "Mpheni Central Pub",
+      skillLevel: "INTERMEDIATE",
+      rating: 1290,
+      division: "BRONZE",
+      provisionalMatches: 9,
+      matchesPlayed: 15,
+      matchesWon: 8,
+      matchesLost: 7,
+      framesWon: 48,
+      framesLost: 46,
+      currentStreak: 2,
+      bestStreak: 4,
+      bio: "Local club favorite with a knack for clutch 8-ball finishes.",
+    },
+    {
+      email: "baseni@my8ball.co.za",
+      role: "PLAYER",
+      username: "baseni_mabasa",
+      displayName: "Baseni Mabasa",
+      town: "Elim",
+      province: "Limpopo",
+      club: "Elim Cue Arena",
+      skillLevel: "INTERMEDIATE",
+      rating: 1240,
       division: "BRONZE",
       provisionalMatches: 8,
-      matchesPlayed: 12,
-      matchesWon: 5,
-      matchesLost: 7,
-      framesWon: 34,
-      framesLost: 44,
-      currentStreak: 1,
+      matchesPlayed: 14,
+      matchesWon: 6,
+      matchesLost: 8,
+      framesWon: 40,
+      framesLost: 49,
+      currentStreak: 0,
       bestStreak: 3,
-      bio: "Learning Blackball SA tournament rules. Enthusiastic club regular.",
+      bio: "Disciplined player working up the ranks of the Elim circuit.",
+    },
+    {
+      email: "raymond@my8ball.co.za",
+      role: "PLAYER",
+      username: "raymond_tsaps",
+      displayName: "Raymond Tsaps",
+      town: "Mpheni",
+      province: "Limpopo",
+      club: "Mpheni Legends Pool Club",
+      skillLevel: "BEGINNER",
+      rating: 1180,
+      division: "ROOKIE",
+      provisionalMatches: 6,
+      matchesPlayed: 10,
+      matchesWon: 4,
+      matchesLost: 6,
+      framesWon: 28,
+      framesLost: 38,
+      currentStreak: 1,
+      bestStreak: 2,
+      bio: "Enthusiastic rookie improving game knowledge and Blackball SA rule mastery.",
     },
   ];
 
@@ -379,7 +526,7 @@ async function main() {
             club: u.club,
             skillLevel: u.skillLevel,
             rating: u.rating,
-            peakRating: u.rating + 40,
+            peakRating: u.rating + 35,
             division: u.division,
             provisionalMatches: u.provisionalMatches,
             matchesPlayed: u.matchesPlayed,
@@ -393,12 +540,13 @@ async function main() {
         },
         availability: {
           create: {
-            status: u.username === "kgothatso_sniper" || u.username === "tshepo_ghost" || u.username === "ndivhuwo_cue"
-              ? "AVAILABLE_INDIVIDUAL"
-              : u.username === "lufuno_spin"
-              ? "IN_MATCH"
-              : "ONLINE_UNAVAILABLE",
-            isAvailable: u.username !== "lufuno_spin" && u.username !== "sipho_king",
+            status:
+              u.username === "talifhani_boyka" || u.username === "lucky_sniper"
+                ? "IN_MATCH"
+                : u.username === "vhutshilo_gusba" || u.username === "thabelo_caeser"
+                ? "AVAILABLE_INDIVIDUAL"
+                : "AVAILABLE_BOTH",
+            isAvailable: true,
             availableForIndividual: true,
             availableForTeam: true,
             preferredVenue: u.club,
@@ -445,61 +593,61 @@ async function main() {
     }
   }
 
-  console.log("Seeding Teams (The 5 Mpheni & Regional Rivals)...");
+  console.log("Seeding Teams with Authentic Player Rosters...");
   const teamsData = [
     {
       name: "Mpheni Cue Masters",
       slug: "mpheni-cue-masters",
-      captainUsername: "kgothatso_sniper",
+      captainUsername: "talifhani_boyka",
       town: "Mpheni",
       homeVenue: "Mpheni Legends Pool Club",
-      rating: 1620,
-      division: "PLATINUM",
-      description: "Elite 8-ball powerhouse from Mpheni. Multiple-time township tournament victors.",
-      members: ["kgothatso_sniper", "thabo_ace", "ndivhuwo_cue"],
+      rating: 1720,
+      division: "DIAMOND",
+      description: "Premier 8-ball squad from Mpheni led by Talifhani (Boyka) and Lucky Khosa (Sniper).",
+      members: ["talifhani_boyka", "lucky_sniper", "vhutshilo_gusba", "maguga_andani", "raymond_tsaps"],
     },
     {
       name: "Elim Blackball Titans",
       slug: "elim-blackball-titans",
-      captainUsername: "tshepo_ghost",
+      captainUsername: "success_godfather",
       town: "Elim",
       homeVenue: "Elim Cue Arena",
-      rating: 1540,
-      division: "GOLD",
-      description: "Disciplined tactical pool squad from Elim representing Limpopo competitive circuits.",
-      members: ["tshepo_ghost"],
+      rating: 1610,
+      division: "PLATINUM",
+      description: "Tactical pool squad from Elim captained by Success (The Godfather).",
+      members: ["success_godfather", "owen_pool", "baseni_mabasa"],
     },
     {
       name: "Venda Royal Shooters",
       slug: "venda-royal-shooters",
-      captainUsername: "lufuno_spin",
+      captainUsername: "shoni_problem",
       town: "Thohoyandou",
       homeVenue: "Thohoyandou Sports Bar",
-      rating: 1480,
-      division: "SILVER",
-      description: "Fierce competitors known for long pot accuracy and relentless safety play.",
-      members: ["lufuno_spin"],
-    },
-    {
-      name: "Soweto 8-Ball Legends",
-      slug: "soweto-8-ball-legends",
-      captainUsername: "sipho_king",
-      town: "Soweto",
-      homeVenue: "Orlando Pool Club",
-      rating: 1710,
-      division: "DIAMOND",
-      description: "Gauteng invitational champions bringing high-stakes tournament experience.",
-      members: ["sipho_king"],
+      rating: 1540,
+      division: "GOLD",
+      description: "Aggressive clearing squad featuring Shoni (The Problem) and Lufuno (Sbalo).",
+      members: ["shoni_problem", "lufuno_sbalo", "thabelo_caeser"],
     },
     {
       name: "Limpopo Spin Hawks",
       slug: "limpopo-spin-hawks",
+      captainUsername: "godfrey_ludere",
+      town: "Polokwane",
+      homeVenue: "Polokwane Central Club",
+      rating: 1380,
+      division: "SILVER",
+      description: "Provincial competitors known for high tactical discipline.",
+      members: ["godfrey_ludere", "mr_lee_thanz"],
+    },
+    {
+      name: "Mpheni Legends Squad",
+      slug: "mpheni-legends-squad",
       captainUsername: "mpheni_chief",
       town: "Mpheni",
       homeVenue: "Mpheni Central Pub",
       rating: 1410,
       division: "SILVER",
-      description: "Local veterans with decades of grassroots competition experience.",
+      description: "Township club regulars bringing veteran match temperament.",
       members: ["mpheni_chief"],
     },
   ];
@@ -550,7 +698,7 @@ async function main() {
     });
   }
 
-  console.log("Seeding League & 5-Team Tournament (Mpheni Community Pool League)...");
+  console.log("Seeding League (Mpheni Community Pool League)...");
   const organizer = dbUsers["mpheni_chief"];
 
   const mpheniLeague = await prisma.league.create({
@@ -576,10 +724,10 @@ async function main() {
   // Add 5 teams as participants in Mpheni League
   const teamStandings = [
     { slug: "mpheni-cue-masters", points: 9, played: 3, wins: 3, draws: 0, losses: 0, fw: 15, fl: 4, standing: 1 },
-    { slug: "soweto-8-ball-legends", points: 6, played: 3, wins: 2, draws: 0, losses: 1, fw: 12, fl: 7, standing: 2 },
-    { slug: "elim-blackball-titans", points: 3, played: 2, wins: 1, draws: 0, losses: 1, fw: 7, fl: 6, standing: 3 },
-    { slug: "venda-royal-shooters", points: 3, played: 2, wins: 1, draws: 0, losses: 1, fw: 6, fl: 8, standing: 4 },
-    { slug: "limpopo-spin-hawks", points: 0, played: 2, wins: 0, draws: 0, losses: 2, fw: 2, fl: 10, standing: 5 },
+    { slug: "elim-blackball-titans", points: 6, played: 3, wins: 2, draws: 0, losses: 1, fw: 12, fl: 7, standing: 2 },
+    { slug: "venda-royal-shooters", points: 3, played: 2, wins: 1, draws: 0, losses: 1, fw: 7, fl: 6, standing: 3 },
+    { slug: "limpopo-spin-hawks", points: 3, played: 2, wins: 1, draws: 0, losses: 1, fw: 6, fl: 8, standing: 4 },
+    { slug: "mpheni-legends-squad", points: 0, played: 2, wins: 0, draws: 0, losses: 2, fw: 2, fl: 10, standing: 5 },
   ];
 
   for (const s of teamStandings) {
@@ -599,7 +747,7 @@ async function main() {
     });
   }
 
-  console.log("Seeding One-Day 5-Team Tournament (Mpheni Monthly Invitational)...");
+  console.log("Seeding Tournament (Mpheni Monthly 8-Ball Invitational)...");
   const tournament = await prisma.tournament.create({
     data: {
       name: "Mpheni Monthly 8-Ball Invitational",
@@ -654,11 +802,11 @@ async function main() {
       tournamentId: tournament.id,
       round: "Round 1 - Morning",
       tableNumber: 2,
-      team1Id: dbTeams["soweto-8-ball-legends"].id,
-      team2Id: dbTeams["venda-royal-shooters"].id,
+      team1Id: dbTeams["venda-royal-shooters"].id,
+      team2Id: dbTeams["limpopo-spin-hawks"].id,
       score1: 5,
       score2: 1,
-      winnerId: dbTeams["soweto-8-ball-legends"].captainId,
+      winnerId: dbTeams["venda-royal-shooters"].captainId,
       status: "COMPLETED",
     },
   });
@@ -670,20 +818,22 @@ async function main() {
       round: "Round 2 - Afternoon Semi-Final",
       tableNumber: 1,
       team1Id: dbTeams["mpheni-cue-masters"].id,
-      team2Id: dbTeams["soweto-8-ball-legends"].id,
+      team2Id: dbTeams["venda-royal-shooters"].id,
       score1: 3,
       score2: 2,
       status: "LIVE",
     },
   });
 
-  console.log("Seeding Matches (Completed, Live, and Awaiting Confirmation)...");
-  // 1. Live Match: Kgothatso vs Sipho (Race to 5, currently 3 - 2)
-  const kgothatso = dbUsers["kgothatso_sniper"];
-  const sipho = dbUsers["sipho_king"];
-  const tshepo = dbUsers["tshepo_ghost"];
-  const lufuno = dbUsers["lufuno_spin"];
+  console.log("Seeding Matches with Talifhani (Boyka) & Competitors...");
+  const talifhani = dbUsers["talifhani_boyka"];
+  const lucky = dbUsers["lucky_sniper"];
+  const success = dbUsers["success_godfather"];
+  const shoni = dbUsers["shoni_problem"];
+  const vhutshilo = dbUsers["vhutshilo_gusba"];
+  const thabelo = dbUsers["thabelo_caeser"];
 
+  // 1. Live Match: Talifhani (Boyka) vs Lucky Khosa (Sniper)
   const liveMatch = await prisma.match.create({
     data: {
       type: "INDIVIDUAL",
@@ -692,52 +842,52 @@ async function main() {
       status: "IN_PROGRESS",
       venue: "Mpheni Legends Club - Table 1",
       tableNumber: 1,
-      player1Id: kgothatso.id,
-      player2Id: sipho.id,
+      player1Id: talifhani.id,
+      player2Id: lucky.id,
       team1Id: dbTeams["mpheni-cue-masters"].id,
-      team2Id: dbTeams["soweto-8-ball-legends"].id,
+      team2Id: dbTeams["venda-royal-shooters"].id,
       scorePlayer1: 3,
       scorePlayer2: 2,
       tournamentId: tournament.id,
       leagueId: mpheniLeague.id,
-      startedAt: new Date(Date.now() - 45 * 60 * 1000), // 45 mins ago
+      startedAt: new Date(Date.now() - 45 * 60 * 1000),
       frames: {
         create: [
           {
             frameNumber: 1,
-            winnerId: kgothatso.id,
-            breakPlayerId: kgothatso.id,
-            durationSeconds: 240,
-            notes: "Kgothatso clearance after yellow pot on open table.",
+            winnerId: talifhani.id,
+            breakPlayerId: talifhani.id,
+            durationSeconds: 210,
+            notes: "Boyka breaks and runs out cleanly on reds.",
           },
           {
             frameNumber: 2,
-            winnerId: sipho.id,
-            breakPlayerId: sipho.id,
-            durationSeconds: 310,
-            notes: "Sipho took advantage of Kgothatso cue ball scratch.",
-            foulEvent: "FOUL_CUE_SCRATCH",
+            winnerId: lucky.id,
+            breakPlayerId: lucky.id,
+            durationSeconds: 290,
+            notes: "Lucky Khosa pots 8-ball with long rail cut.",
           },
           {
             frameNumber: 3,
-            winnerId: kgothatso.id,
-            breakPlayerId: kgothatso.id,
-            durationSeconds: 215,
-            notes: "Clinical runout from Kgothatso.",
+            winnerId: talifhani.id,
+            breakPlayerId: talifhani.id,
+            durationSeconds: 180,
+            notes: "Boyka free shot tactical snooker conversion.",
           },
           {
             frameNumber: 4,
-            winnerId: sipho.id,
-            breakPlayerId: sipho.id,
-            durationSeconds: 280,
-            notes: "Sipho corner bank on the 8-ball.",
+            winnerId: lucky.id,
+            breakPlayerId: lucky.id,
+            durationSeconds: 320,
+            notes: "Lucky capitalizes on cue ball scratch.",
+            foulEvent: "FOUL_CUE_SCRATCH",
           },
           {
             frameNumber: 5,
-            winnerId: kgothatso.id,
-            breakPlayerId: kgothatso.id,
+            winnerId: talifhani.id,
+            breakPlayerId: talifhani.id,
             durationSeconds: 195,
-            notes: "Kgothatso free shot conversion.",
+            notes: "Boyka brilliant bank shot to take 3-2 lead.",
           },
         ],
       },
@@ -750,17 +900,17 @@ async function main() {
     data: { matchId: liveMatch.id },
   });
 
-  // Update Kgothatso & Sipho's activeMatchId
+  // Update Talifhani & Lucky availability
   await prisma.userAvailability.update({
-    where: { userId: kgothatso.id },
+    where: { userId: talifhani.id },
     data: { status: "IN_MATCH", activeMatchId: liveMatch.id },
   });
   await prisma.userAvailability.update({
-    where: { userId: sipho.id },
+    where: { userId: lucky.id },
     data: { status: "IN_MATCH", activeMatchId: liveMatch.id },
   });
 
-  // 2. Match awaiting result confirmation: Tshepo vs Lufuno
+  // 2. Match awaiting confirmation: Success (The Godfather) vs Shoni (The Problem)
   const awaitingMatch = await prisma.match.create({
     data: {
       type: "INDIVIDUAL",
@@ -769,11 +919,11 @@ async function main() {
       status: "AWAITING_CONFIRMATION",
       venue: "Elim Cue Arena - Table 2",
       tableNumber: 2,
-      player1Id: tshepo.id,
-      player2Id: lufuno.id,
+      player1Id: success.id,
+      player2Id: shoni.id,
       scorePlayer1: 5,
       scorePlayer2: 3,
-      winnerId: tshepo.id,
+      winnerId: success.id,
       startedAt: new Date(Date.now() - 90 * 60 * 1000),
       endedAt: new Date(Date.now() - 15 * 60 * 1000),
       confirmation: {
@@ -786,21 +936,21 @@ async function main() {
       },
       frames: {
         create: [
-          { frameNumber: 1, winnerId: tshepo.id, breakPlayerId: tshepo.id },
-          { frameNumber: 2, winnerId: lufuno.id, breakPlayerId: lufuno.id },
-          { frameNumber: 3, winnerId: tshepo.id, breakPlayerId: tshepo.id },
-          { frameNumber: 4, winnerId: tshepo.id, breakPlayerId: lufuno.id },
-          { frameNumber: 5, winnerId: lufuno.id, breakPlayerId: tshepo.id },
-          { frameNumber: 6, winnerId: lufuno.id, breakPlayerId: lufuno.id },
-          { frameNumber: 7, winnerId: tshepo.id, breakPlayerId: tshepo.id },
-          { frameNumber: 8, winnerId: tshepo.id, breakPlayerId: lufuno.id },
+          { frameNumber: 1, winnerId: success.id, breakPlayerId: success.id },
+          { frameNumber: 2, winnerId: shoni.id, breakPlayerId: shoni.id },
+          { frameNumber: 3, winnerId: success.id, breakPlayerId: success.id },
+          { frameNumber: 4, winnerId: success.id, breakPlayerId: shoni.id },
+          { frameNumber: 5, winnerId: shoni.id, breakPlayerId: success.id },
+          { frameNumber: 6, winnerId: shoni.id, breakPlayerId: shoni.id },
+          { frameNumber: 7, winnerId: success.id, breakPlayerId: success.id },
+          { frameNumber: 8, winnerId: success.id, breakPlayerId: shoni.id },
         ],
       },
     },
   });
 
-  // 3. Completed Historical Match: Kgothatso vs Tshepo with Rating History
-  const completedMatch = await prisma.match.create({
+  // 3. Completed Historical Match: Talifhani (Boyka) vs Success (The Godfather)
+  await prisma.match.create({
     data: {
       type: "INDIVIDUAL",
       ruleset: "BLACKBALL_SA",
@@ -808,11 +958,11 @@ async function main() {
       status: "COMPLETED",
       venue: "Mpheni Legends Club",
       tableNumber: 1,
-      player1Id: kgothatso.id,
-      player2Id: tshepo.id,
+      player1Id: talifhani.id,
+      player2Id: success.id,
       scorePlayer1: 5,
       scorePlayer2: 2,
-      winnerId: kgothatso.id,
+      winnerId: talifhani.id,
       startedAt: new Date(Date.now() - 24 * 3600 * 1000),
       endedAt: new Date(Date.now() - 23 * 3600 * 1000),
       confirmation: {
@@ -827,20 +977,20 @@ async function main() {
       ratingHistories: {
         create: [
           {
-            userId: kgothatso.id,
-            oldRating: 1664,
-            newRating: 1680,
+            userId: talifhani.id,
+            oldRating: 1764,
+            newRating: 1780,
             change: 16,
-            opponentId: tshepo.id,
-            opponentRating: 1556,
+            opponentId: success.id,
+            opponentRating: 1676,
           },
           {
-            userId: tshepo.id,
-            oldRating: 1556,
-            newRating: 1540,
+            userId: success.id,
+            oldRating: 1676,
+            newRating: 1660,
             change: -16,
-            opponentId: kgothatso.id,
-            opponentRating: 1664,
+            opponentId: talifhani.id,
+            opponentRating: 1764,
           },
         ],
       },
@@ -848,17 +998,17 @@ async function main() {
   });
 
   console.log("Seeding Active Challenge...");
-  // Thabo challenged Ndivhuwo
+  // Vhutshilo (Gusba) challenged Thabelo (Caeser)
   await prisma.challenge.create({
     data: {
-      challengerId: dbUsers["thabo_ace"].id,
-      challengedId: dbUsers["ndivhuwo_cue"].id,
+      challengerId: vhutshilo.id,
+      challengedId: thabelo.id,
       type: "INDIVIDUAL",
       ruleset: "BLACKBALL_SA",
       raceTo: 5,
       isPlayNow: true,
       venue: "Mpheni Legends Pool Club",
-      message: "Ready for our grudge match! First to 5 frames, BSA rules.",
+      message: "Ready for our grudge match! First to 5 frames, BSA official rules.",
       status: "PENDING",
       expiresAt: new Date(Date.now() + 2 * 3600 * 1000),
     },
@@ -867,25 +1017,25 @@ async function main() {
   console.log("Seeding Notifications...");
   await prisma.notification.create({
     data: {
-      userId: dbUsers["ndivhuwo_cue"].id,
+      userId: thabelo.id,
       type: "CHALLENGE_RECEIVED",
-      title: "New Challenge from Thabo '8-Ball Ace'",
-      message: "Thabo challenged you to a Race-to-5 Blackball match at Mpheni Legends.",
+      title: "New Challenge from Vhutshilo (Gusba)",
+      message: "Vhutshilo challenged you to a Race-to-5 Blackball match at Mpheni Legends.",
       link: "/challenges",
     },
   });
 
   await prisma.notification.create({
     data: {
-      userId: lufuno.id,
+      userId: shoni.id,
       type: "RESULT_CONFIRMATION",
       title: "Result Confirmation Required",
-      message: "Tshepo submitted a 5-3 victory in your recent match. Please review and confirm.",
+      message: "Success (The Godfather) submitted a 5-3 victory in your recent match. Please review and confirm.",
       link: `/matches/${awaitingMatch.id}`,
     },
   });
 
-  console.log("Database seeded successfully with authentic tournament, league, and player records!");
+  console.log("Database seeded successfully with all 13 authentic players and updated tournament brackets!");
 }
 
 main()

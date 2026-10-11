@@ -25,7 +25,7 @@ export const revalidate = 0;
 export default async function DashboardPage() {
   const session = await getSessionUser();
 
-  // If no session, load default demo player Kgothatso Nemavhola
+  // If no session, load default featured player Talifhani (Boyka)
   const user = session
     ? await prisma.user.findUnique({
         where: { id: session.id },
@@ -37,7 +37,7 @@ export default async function DashboardPage() {
         },
       })
     : await prisma.user.findFirst({
-        where: { profile: { username: "kgothatso_sniper" } },
+        where: { profile: { username: "talifhani_boyka" } },
         include: {
           profile: true,
           availability: true,

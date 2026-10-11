@@ -133,18 +133,18 @@ export default function SignInPage() {
           <div className="grid grid-cols-1 gap-1.5">
             <button
               type="button"
-              onClick={() => handleQuickLogin("kgothatso@my8ball.co.za")}
+              onClick={() => handleQuickLogin("talifhani@my8ball.co.za")}
               className="px-3 py-2 rounded-lg bg-surface text-left text-xs hover:border-brand/40 border border-surface-border flex items-center justify-between text-slate-muted hover:text-white"
             >
-              <span>Kgothatso (Mpheni Sniper · Platinum)</span>
+              <span>Talifhani (Boyka · Diamond Tier)</span>
               <span className="font-mono text-[10px] text-brand">Auto-Fill</span>
             </button>
             <button
               type="button"
-              onClick={() => handleQuickLogin("organizer@mpheni.co.za")}
+              onClick={() => handleQuickLogin("lucky@my8ball.co.za")}
               className="px-3 py-2 rounded-lg bg-surface text-left text-xs hover:border-brand/40 border border-surface-border flex items-center justify-between text-slate-muted hover:text-white"
             >
-              <span>Tshifhiwa (Mpheni Organizer)</span>
+              <span>Lucky Khosa (Sniper · Diamond Tier)</span>
               <span className="font-mono text-[10px] text-gold">Auto-Fill</span>
             </button>
             <button

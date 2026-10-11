@@ -86,7 +86,7 @@ export default function SignUpPage() {
                 required
                 value={formData.displayName}
                 onChange={(e) => setFormData({ ...formData, displayName: e.target.value })}
-                placeholder="Kgothatso Nemavhola"
+                placeholder="Talifhani Boyka"
                 className="w-full px-3 py-2 rounded-xl bg-surface-elevated border border-surface-border text-xs text-white placeholder-slate-muted/50 focus:outline-none focus:border-brand"
               />
             </div>
